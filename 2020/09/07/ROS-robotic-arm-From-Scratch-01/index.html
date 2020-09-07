@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Demonstrate  Arduino control servo motor with ros设计图最终结果大概是想设计成上面这样。第一个问题是如何使用ROS控制舵机转动一定角度。首先是arduino，安装好rosserial后确保一切正常，下面这个是详细且成功率高的安装方法。https:&#x2F;&#x2F;www.intorobotics.com&#x2F;installing-and-setting-up-ardu">
+    <meta name="description" content="warningSome of the images cannot be displayed properly because the original blogging platform has closed external linkshere is the original linkshttps:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;53bd12fd7155 https:&#x2F;&#x2F;www.jian">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ROS robotic arm From Scratch">
 <meta property="og:url" content="http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/index.html">
 <meta property="og:site_name" content="P O R T">
-<meta property="og:description" content="Demonstrate  Arduino control servo motor with ros设计图最终结果大概是想设计成上面这样。第一个问题是如何使用ROS控制舵机转动一定角度。首先是arduino，安装好rosserial后确保一切正常，下面这个是详细且成功率高的安装方法。https:&#x2F;&#x2F;www.intorobotics.com&#x2F;installing-and-setting-up-ardu">
+<meta property="og:description" content="warningSome of the images cannot be displayed properly because the original blogging platform has closed external linkshere is the original linkshttps:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;53bd12fd7155 https:&#x2F;&#x2F;www.jian">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-6999af44422cc4fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-7718abeb71e0b150.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -47,7 +47,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-d3ae03ead4ccf3c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-20631ca4b73f4ca9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="article:published_time" content="2020-09-07T15:34:50.000Z">
-<meta property="article:modified_time" content="2020-09-07T16:22:20.581Z">
+<meta property="article:modified_time" content="2020-09-07T18:09:45.352Z">
 <meta property="article:author" content="Yujian Cheng">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8555575-6999af44422cc4fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -141,7 +141,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Demonstrate"><span class="toc-number">1.</span> <span class="toc-text">Demonstrate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Arduino-control-servo-motor-with-ros"><span class="toc-number">2.</span> <span class="toc-text">Arduino control servo motor with ros</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设计图"><span class="toc-number">2.1.</span> <span class="toc-text">设计图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#URDF"><span class="toc-number">3.</span> <span class="toc-text">URDF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SW2URDF"><span class="toc-number">4.</span> <span class="toc-text">SW2URDF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rosserial-PCA9685"><span class="toc-number">5.</span> <span class="toc-text">Rosserial PCA9685</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#warning"><span class="toc-number">1.</span> <span class="toc-text">warning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demonstrate"><span class="toc-number">2.</span> <span class="toc-text">Demonstrate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Arduino-control-servo-motor-with-ros"><span class="toc-number">3.</span> <span class="toc-text">Arduino control servo motor with ros</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设计图"><span class="toc-number">3.1.</span> <span class="toc-text">设计图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#URDF"><span class="toc-number">4.</span> <span class="toc-text">URDF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SW2URDF"><span class="toc-number">5.</span> <span class="toc-text">SW2URDF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rosserial-PCA9685"><span class="toc-number">6.</span> <span class="toc-text">Rosserial PCA9685</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -167,7 +167,7 @@
       
         <time datetime="2020-09-07T15:34:50.000Z" itemprop="datePublished">2020-09-07</time>
         
-        (Updated: <time datetime="2020-09-07T16:22:20.581Z" itemprop="dateModified">2020-09-07</time>)
+        (Updated: <time datetime="2020-09-07T18:09:45.352Z" itemprop="dateModified">2020-09-07</time>)
         
       
     </div>
@@ -182,7 +182,10 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="Demonstrate"><a href="#Demonstrate" class="headerlink" title="Demonstrate"></a>Demonstrate</h2><iframe width="560" height="315" src="https://www.youtube.com/embed/cpjB-h38BA4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <h2 id="warning"><a href="#warning" class="headerlink" title="warning"></a>warning</h2><p>Some of the images cannot be displayed properly because the original blogging platform has closed external links<br>here is the original links<br><a href="https://www.jianshu.com/p/53bd12fd7155" target="_blank" rel="noopener">https://www.jianshu.com/p/53bd12fd7155</a></p>
+<p><a href="https://www.jianshu.com/p/30b922dae307" target="_blank" rel="noopener">https://www.jianshu.com/p/30b922dae307</a></p>
+<p><a href="https://www.jianshu.com/p/040635e4d8c8" target="_blank" rel="noopener">https://www.jianshu.com/p/040635e4d8c8</a></p>
+<h2 id="Demonstrate"><a href="#Demonstrate" class="headerlink" title="Demonstrate"></a>Demonstrate</h2><iframe width="560" height="315" src="https://www.youtube.com/embed/cpjB-h38BA4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h2 id="Arduino-control-servo-motor-with-ros"><a href="#Arduino-control-servo-motor-with-ros" class="headerlink" title="Arduino control servo motor with ros"></a>Arduino control servo motor with ros</h2><h3 id="设计图"><a href="#设计图" class="headerlink" title="设计图"></a>设计图</h3><p><img src="https://upload-images.jianshu.io/upload_images/8555575-6999af44422cc4fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="第一版设计，总感觉有点不对劲，先试试看。"><br><img src="https://upload-images.jianshu.io/upload_images/8555575-7718abeb71e0b150.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="第二版设计"><br>最终结果大概是想设计成上面这样。<br>第一个问题是如何使用ROS控制舵机转动一定角度。<br>首先是arduino，安装好rosserial后确保一切正常，下面这个是详细且成功率高的安装方法。<br><a href="https://www.intorobotics.com/installing-and-setting-up-arduino-with-ros-kinetic-raspberry-pi-3/" target="_blank" rel="noopener">https://www.intorobotics.com/installing-and-setting-up-arduino-with-ros-kinetic-raspberry-pi-3/</a><br>但是这种方法在Ubuntu18.04下有bug<br>另一种方法是从arduino官网上下载，解压出来后运行install.sh<br>之后再从Library Manager中安装rosserial库。<br><img src="https://upload-images.jianshu.io/upload_images/8555575-77085a315fc6eb93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>安装好之后可以先试试example里的控制舵机的程序（用第二种方法没有这段代码）</p>
@@ -282,7 +285,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Demonstrate"><span class="toc-number">1.</span> <span class="toc-text">Demonstrate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Arduino-control-servo-motor-with-ros"><span class="toc-number">2.</span> <span class="toc-text">Arduino control servo motor with ros</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设计图"><span class="toc-number">2.1.</span> <span class="toc-text">设计图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#URDF"><span class="toc-number">3.</span> <span class="toc-text">URDF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SW2URDF"><span class="toc-number">4.</span> <span class="toc-text">SW2URDF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rosserial-PCA9685"><span class="toc-number">5.</span> <span class="toc-text">Rosserial PCA9685</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#warning"><span class="toc-number">1.</span> <span class="toc-text">warning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demonstrate"><span class="toc-number">2.</span> <span class="toc-text">Demonstrate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Arduino-control-servo-motor-with-ros"><span class="toc-number">3.</span> <span class="toc-text">Arduino control servo motor with ros</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设计图"><span class="toc-number">3.1.</span> <span class="toc-text">设计图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#URDF"><span class="toc-number">4.</span> <span class="toc-text">URDF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SW2URDF"><span class="toc-number">5.</span> <span class="toc-text">SW2URDF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rosserial-PCA9685"><span class="toc-number">6.</span> <span class="toc-text">Rosserial PCA9685</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
