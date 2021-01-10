@@ -6,15 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="article">
+    <meta name="description" content="introgeneral setupsetup firewallUFW，全称 Uncomplicated Firewall，是通过 iptables 实现的防火墙工具。ufw 是对 iptables 的封装，iptables 的规则太过于复杂，不适合新手。这篇文章也是如何增强VPS安全性的扩展篇，在修改了SSH端口，登录用户之后，最好清楚自己开放了VPS的哪些端口访问，把他们用 ufw 管理起来，">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Deployment of flask project on VPS">
 <meta property="og:url" content="http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/index.html">
 <meta property="og:site_name" content="P O R T">
+<meta property="og:description" content="introgeneral setupsetup firewallUFW，全称 Uncomplicated Firewall，是通过 iptables 实现的防火墙工具。ufw 是对 iptables 的封装，iptables 的规则太过于复杂，不适合新手。这篇文章也是如何增强VPS安全性的扩展篇，在修改了SSH端口，登录用户之后，最好清楚自己开放了VPS的哪些端口访问，把他们用 ufw 管理起来，">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210109153516.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210109155151.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210109160810.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210110145635.png">
 <meta property="article:published_time" content="2021-01-09T14:42:35.000Z">
-<meta property="article:modified_time" content="2021-01-09T14:42:35.643Z">
+<meta property="article:modified_time" content="2021-01-10T15:00:49.879Z">
 <meta property="article:author" content="Yujian Cheng">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210109153516.png">
     
     
         
@@ -103,7 +110,7 @@
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#intro"><span class="toc-number">1.</span> <span class="toc-text">intro</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#general-setup"><span class="toc-number">2.</span> <span class="toc-text">general setup</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-firewall"><span class="toc-number">2.1.</span> <span class="toc-text">setup firewall</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-Flask-Project"><span class="toc-number">2.2.</span> <span class="toc-text">setup Flask Project</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Install-environment-requirements"><span class="toc-number">2.2.1.</span> <span class="toc-text">Install environment requirements</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-and-active-Virtual-environment"><span class="toc-number">2.2.2.</span> <span class="toc-text">Create and active Virtual environment</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-nginx-amp-gunicorn"><span class="toc-number">2.3.</span> <span class="toc-text">setup nginx &amp; gunicorn</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#setup-ufw-again"><span class="toc-number">2.3.1.</span> <span class="toc-text">setup ufw again</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gunicorn-start"><span class="toc-number">2.3.2.</span> <span class="toc-text">gunicorn start</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#using-supervisor-manage-gunicorn"><span class="toc-number">2.3.3.</span> <span class="toc-text">using supervisor manage gunicorn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#create-log-file-dir"><span class="toc-number">2.3.4.</span> <span class="toc-text">create log file dir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#restart-supervisor"><span class="toc-number">2.3.5.</span> <span class="toc-text">restart supervisor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Change"><span class="toc-number">2.4.</span> <span class="toc-text">Change</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -129,7 +136,7 @@
       
         <time datetime="2021-01-09T14:42:35.000Z" itemprop="datePublished">2021-01-09</time>
         
-        (Updated: <time datetime="2021-01-09T14:42:35.643Z" itemprop="dateModified">2021-01-09</time>)
+        (Updated: <time datetime="2021-01-10T15:00:49.879Z" itemprop="dateModified">2021-01-10</time>)
         
       
     </div>
@@ -144,7 +151,82 @@
   
 
   <div class="content" itemprop="articleBody">
-    
+    <h1 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h1><h1 id="general-setup"><a href="#general-setup" class="headerlink" title="general setup"></a>general setup</h1><h2 id="setup-firewall"><a href="#setup-firewall" class="headerlink" title="setup firewall"></a>setup firewall</h2><p>UFW，全称 Uncomplicated Firewall，是通过 iptables 实现的防火墙工具。ufw 是对 iptables 的封装，iptables 的规则太过于复杂，不适合新手。这篇文章也是如何增强VPS安全性的扩展篇，在修改了SSH端口，登录用户之后，最好清楚自己开放了VPS的哪些端口访问，把他们用 ufw 管理起来，防止被滥用。</p>
+<p>UFW, full name Uncomplicated Firewall, is a Firewall tool implemented through iptables.UFW is a encapsulation of iptables, whose rules are too complex for beginners.This article is also an extension on how to enhance VPS security. After you modify the SSH port and log in the user, it is a good idea to know which ports you have access to on your VPS and manage them with UFW to prevent abuse.</p>
+<p><a href="http://einverne.github.io/post/2018/04/ufw.html" target="_blank" rel="noopener">Linux 下的防火墙 ufw</a></p>
+<blockquote>
+<p>sudo apt install -y ufw</p>
+<p>sudo ufw default allow outgoing</p>
+<p>sudo ufw default deny incoming</p>
+<p>sudo ufw allow ssh</p>
+<p>sudo ufw allow 5000 </p>
+<p>sudo ufw enable </p>
+</blockquote>
+<blockquote>
+<p>sudo ufw status<br><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210109153516.png" alt="sudo ufw status"></p>
+</blockquote>
+<h2 id="setup-Flask-Project"><a href="#setup-Flask-Project" class="headerlink" title="setup Flask Project"></a>setup Flask Project</h2><blockquote>
+<p><strong>Tip:</strong> prepare a requirement.txt<br>Include all the package need to be installed in this flask project. if does not know what are those packages, can use command <strong>pip freeze</strong><br><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210109155151.png" alt=""></p>
+</blockquote>
+<p>then use <strong>git clone</strong> to get the project files from your github repository</p>
+<p>PS: you can use <strong>scp</strong> as well.</p>
+<h3 id="Install-environment-requirements"><a href="#Install-environment-requirements" class="headerlink" title="Install environment requirements"></a>Install environment requirements</h3><blockquote>
+<p>sudo apt install -y python3-pip</p>
+<p>sudo apt install -y python3-venv</p>
+</blockquote>
+<h3 id="Create-and-active-Virtual-environment"><a href="#Create-and-active-Virtual-environment" class="headerlink" title="Create and active Virtual environment"></a>Create and active Virtual environment</h3><blockquote>
+<p>python3 -m venv {<strong>Your Project Dir</strong>}/venv</p>
+<p>source venv/bin/activate</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210109160810.png" alt=""></p>
+<p>Then we can install all requirements with requirements.txt</p>
+<blockquote>
+<p>pip install -r requirements.txt</p>
+</blockquote>
+<p>if this step has problems, you can install the requirements manually using <strong>pip install {package name}</strong> as well.</p>
+<h2 id="setup-nginx-amp-gunicorn"><a href="#setup-nginx-amp-gunicorn" class="headerlink" title="setup nginx &amp; gunicorn"></a>setup nginx &amp; gunicorn</h2><blockquote>
+<p>pip install gunicorn </p>
+<p>sudo apt install -y nginx</p>
+<p>sudo rm /etc/nginx/sites-enabled/default</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name 45.33.123.214;</span><br><span class="line"></span><br><span class="line">        location &#x2F;static&#123;</span><br><span class="line">                alias &#x2F;home&#x2F;tom&#x2F;Projects&#x2F;DocumentOCR&#x2F;app&#x2F;static;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location &#x2F;&#123;</span><br><span class="line">                proxy_pass http:&#x2F;&#x2F;localhost:8000;</span><br><span class="line">                include &#x2F;etc&#x2F;nginx&#x2F;proxy_params;</span><br><span class="line">                proxy_redirect off;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="setup-ufw-again"><a href="#setup-ufw-again" class="headerlink" title="setup ufw again"></a>setup ufw again</h3><blockquote>
+<p>:w !sudo tee % &gt; /dev/null</p>
+</blockquote>
+<blockquote>
+<p>sudo ufw allow http/tcp      </p>
+<p>sudo ufw delete allow 5000</p>
+<p>sudo ufw enable</p>
+<p>sudo systemctl restart nginx</p>
+</blockquote>
+<h3 id="gunicorn-start"><a href="#gunicorn-start" class="headerlink" title="gunicorn start"></a>gunicorn start</h3><blockquote>
+<p>gunicorn -w {worker} run:app</p>
+</blockquote>
+<p>worker = core * 2 +1</p>
+<h3 id="using-supervisor-manage-gunicorn"><a href="#using-supervisor-manage-gunicorn" class="headerlink" title="using supervisor manage gunicorn"></a>using supervisor manage gunicorn</h3><blockquote>
+<p>sudo apt-get install -y supervisor</p>
+</blockquote>
+<p>then setup config file for supervisor</p>
+<blockquote>
+<p>sudo vim /etc/supervisor/conf.d/$ProjectName.conf</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[program:$ProjectName]</span><br><span class="line">directory&#x3D;&#x2F;home&#x2F;tom&#x2F;Projects&#x2F;$ProjectName</span><br><span class="line">command&#x3D;&#x2F;home&#x2F;tom&#x2F;Projects&#x2F;$ProjectName&#x2F;venv&#x2F;bin&#x2F;gunicorn -w &#123;worker&#125; run:app</span><br><span class="line">user&#x3D;&#123;UserName&#125;</span><br><span class="line">autostart&#x3D;true</span><br><span class="line">autorestart&#x3D;true</span><br><span class="line">stopasgroup&#x3D;true</span><br><span class="line">killasgroup&#x3D;true</span><br><span class="line">stderr_logfile&#x3D;&#x2F;var&#x2F;log&#x2F;$ProjectName&#x2F;$ProjectName.err.log</span><br><span class="line">stdout_logfile&#x3D;&#x2F;var&#x2F;log&#x2F;$ProjectName&#x2F;$ProjectName.out.log</span><br></pre></td></tr></table></figure>
+<h3 id="create-log-file-dir"><a href="#create-log-file-dir" class="headerlink" title="create log file dir"></a>create log file dir</h3><blockquote>
+<p>sudo mkdir -p /var/log/$ProjectName<br>sudo touch /var/log/$ProjectName/$ProjectName.err.log<br>sudo touch /var/log/$ProjectName/$ProjectName.out.log</p>
+</blockquote>
+<h3 id="restart-supervisor"><a href="#restart-supervisor" class="headerlink" title="restart supervisor"></a>restart supervisor</h3><blockquote>
+<p>sudo supervisorctl reload</p>
+</blockquote>
+<h2 id="Change"><a href="#Change" class="headerlink" title="Change"></a>Change</h2><blockquote>
+<p>sudo vim /etc/nginx/nginx.conf<br>add this within block <strong>http</strong><br>client_max_body_size {upt to you}M;</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210110145635.png" alt=""></p>
+<p>the restart nginx</p>
+<blockquote>
+<p>sudo systemctl restart nginx</p>
+</blockquote>
+
   </div>
 </article>
 
@@ -169,7 +251,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#intro"><span class="toc-number">1.</span> <span class="toc-text">intro</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#general-setup"><span class="toc-number">2.</span> <span class="toc-text">general setup</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-firewall"><span class="toc-number">2.1.</span> <span class="toc-text">setup firewall</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-Flask-Project"><span class="toc-number">2.2.</span> <span class="toc-text">setup Flask Project</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Install-environment-requirements"><span class="toc-number">2.2.1.</span> <span class="toc-text">Install environment requirements</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-and-active-Virtual-environment"><span class="toc-number">2.2.2.</span> <span class="toc-text">Create and active Virtual environment</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-nginx-amp-gunicorn"><span class="toc-number">2.3.</span> <span class="toc-text">setup nginx &amp; gunicorn</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#setup-ufw-again"><span class="toc-number">2.3.1.</span> <span class="toc-text">setup ufw again</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gunicorn-start"><span class="toc-number">2.3.2.</span> <span class="toc-text">gunicorn start</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#using-supervisor-manage-gunicorn"><span class="toc-number">2.3.3.</span> <span class="toc-text">using supervisor manage gunicorn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#create-log-file-dir"><span class="toc-number">2.3.4.</span> <span class="toc-text">create log file dir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#restart-supervisor"><span class="toc-number">2.3.5.</span> <span class="toc-text">restart supervisor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Change"><span class="toc-number">2.4.</span> <span class="toc-text">Change</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
