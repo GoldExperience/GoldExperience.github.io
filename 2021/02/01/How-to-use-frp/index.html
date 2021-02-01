@@ -9,15 +9,16 @@
     <meta name="description" content="title: How to use frpdate: 2021-01-30 21:27:10tags: Frp是一款高性能反向代理应用，如果想用自己内网的电脑作为服务器，但是没有ISP给的公网ip，同时租的云服务器性能又太弱，那么就可以使用frp进行内网穿透。也就是说，无论在其他什么地方，都可以通过云服务器的公网ip地址访问到你存在于内网中的服务器（比如你的个人电脑）上运行的服务。 提供frp服务">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How-to-use-frp">
-<meta property="og:url" content="http://yoursite.com/2021/01/31/How-to-use-frp/index.html">
+<meta property="og:url" content="http://yoursite.com/2021/02/01/How-to-use-frp/index.html">
 <meta property="og:site_name" content="P O R T">
 <meta property="og:description" content="title: How to use frpdate: 2021-01-30 21:27:10tags: Frp是一款高性能反向代理应用，如果想用自己内网的电脑作为服务器，但是没有ISP给的公网ip，同时租的云服务器性能又太弱，那么就可以使用frp进行内网穿透。也就是说，无论在其他什么地方，都可以通过云服务器的公网ip地址访问到你存在于内网中的服务器（比如你的个人电脑）上运行的服务。 提供frp服务">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210131202743655.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210201094616702.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210131211049946.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210131211807354.png">
-<meta property="article:published_time" content="2021-01-31T21:22:32.429Z">
-<meta property="article:modified_time" content="2021-01-31T21:22:24.531Z">
+<meta property="article:published_time" content="2021-02-01T09:47:59.991Z">
+<meta property="article:modified_time" content="2021-02-01T09:47:59.991Z">
 <meta property="article:author" content="Yujian Cheng">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210131202743655.png">
@@ -94,17 +95,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/01/31/How-to-use-frp/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2021/01/31/How-to-use-frp/&text=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/01/31/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/01/31/How-to-use-frp/&is_video=false&description=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=How-to-use-frp&body=Check out this article: http://yoursite.com/2021/01/31/How-to-use-frp/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2021/01/31/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2021/01/31/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/01/31/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2021/01/31/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/01/31/How-to-use-frp/&name=How-to-use-frp&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/01/31/How-to-use-frp/&t=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/02/01/How-to-use-frp/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2021/02/01/How-to-use-frp/&text=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/02/01/How-to-use-frp/&is_video=false&description=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=How-to-use-frp&body=Check out this article: http://yoursite.com/2021/02/01/How-to-use-frp/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/02/01/How-to-use-frp/&name=How-to-use-frp&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/02/01/How-to-use-frp/&t=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -133,9 +134,9 @@
       
     <div class="postdate">
       
-        <time datetime="2021-01-31T21:22:32.429Z" itemprop="datePublished">2021-01-31</time>
+        <time datetime="2021-02-01T09:47:59.991Z" itemprop="datePublished">2021-02-01</time>
         
-        (Updated: <time datetime="2021-01-31T21:22:24.531Z" itemprop="dateModified">2021-01-31</time>)
+        (Updated: <time datetime="2021-02-01T09:47:59.991Z" itemprop="dateModified">2021-02-01</time>)
         
       
     </div>
@@ -166,6 +167,7 @@
 <p>➜  ~ tree frp_0.35.1_linux_amd64<br>frp_0.35.1_linux_amd64<br>├── frpc<br>├── frpc_full.ini<br>├── frpc.ini<br>├── frps<br>├── frps_full.ini<br>├── frps.ini<br>├── LICENSE<br>└── systemd<br>    ├── frpc.service<br>    ├── frpc@.service<br>    ├── frps.service<br>    └── frps@.service</p>
 </blockquote>
 <p>其中，frp服务端目前只需要关注frps和frps.ini这两个文件，frp客户端则只需要关注frpc和frpc.ini这两个文件，没有扩展名的是可执行文件，有扩展名的为配置文件。</p>
+<p><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210201094616702.png" alt="image-20210201094616702"></p>
 <h2 id="如何写配置文件"><a href="#如何写配置文件" class="headerlink" title="如何写配置文件"></a>如何写配置文件</h2><h3 id="frps-ini"><a href="#frps-ini" class="headerlink" title="frps.ini"></a>frps.ini</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port &#x3D; 7000</span><br><span class="line">token &#x3D; 2077</span><br><span class="line">vhost_http_port &#x3D; 10080 #提供http服务</span><br><span class="line">vhost_https_port &#x3D; 10443 #提供http服务</span><br><span class="line">dashboard_port &#x3D; 7500 </span><br><span class="line">dashboard_user &#x3D; admin</span><br><span class="line">dashboard_pwd &#x3D; admin</span><br></pre></td></tr></table></figure>
 
 <p>其中，bind_port是绑定的端口，与frpc.ini中务必保持一致。</p>
@@ -235,17 +237,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/01/31/How-to-use-frp/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2021/01/31/How-to-use-frp/&text=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/01/31/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/01/31/How-to-use-frp/&is_video=false&description=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=How-to-use-frp&body=Check out this article: http://yoursite.com/2021/01/31/How-to-use-frp/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2021/01/31/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2021/01/31/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/01/31/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2021/01/31/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/01/31/How-to-use-frp/&name=How-to-use-frp&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/01/31/How-to-use-frp/&t=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/02/01/How-to-use-frp/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2021/02/01/How-to-use-frp/&text=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/02/01/How-to-use-frp/&is_video=false&description=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=How-to-use-frp&body=Check out this article: http://yoursite.com/2021/02/01/How-to-use-frp/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/02/01/How-to-use-frp/&name=How-to-use-frp&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/02/01/How-to-use-frp/&t=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
