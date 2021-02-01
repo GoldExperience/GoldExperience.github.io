@@ -6,13 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="article">
+    <meta name="description" content="之前介绍了如何使用frp进行内网穿透，以及如何在vps上部署自己的动态网页应用等文章，其中都涉及到了如何让自己写的程序能自己在后台不断运行，挂掉之后能自动重启这样的问题，这个问题可以借助supervisor解决。 这篇文章用一个极简的例子——一个不断计数的简单Python程序来解释supervisor最基本的用法。 下载安装Ubuntu系统下  sudo apt-get install super">
+<meta property="og:type" content="article">
 <meta property="og:title" content="extremely simple Example of how to use supervisor">
 <meta property="og:url" content="http://yoursite.com/2021/02/01/extremely-simple-Example-of-how-to-use-supervisor/index.html">
 <meta property="og:site_name" content="P O R T">
+<meta property="og:description" content="之前介绍了如何使用frp进行内网穿透，以及如何在vps上部署自己的动态网页应用等文章，其中都涉及到了如何让自己写的程序能自己在后台不断运行，挂掉之后能自动重启这样的问题，这个问题可以借助supervisor解决。 这篇文章用一个极简的例子——一个不断计数的简单Python程序来解释supervisor最基本的用法。 下载安装Ubuntu系统下  sudo apt-get install super">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-02-01T09:50:04.000Z">
-<meta property="article:modified_time" content="2021-02-01T09:50:04.930Z">
+<meta property="article:modified_time" content="2021-02-01T10:05:41.818Z">
 <meta property="article:author" content="Yujian Cheng">
 <meta name="twitter:card" content="summary">
     
@@ -105,7 +107,7 @@
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#下载安装"><span class="toc-number">1.</span> <span class="toc-text">下载安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备一个需要supervisor管理的简单程序"><span class="toc-number">2.</span> <span class="toc-text">准备一个需要supervisor管理的简单程序</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -131,7 +133,7 @@
       
         <time datetime="2021-02-01T09:50:04.000Z" itemprop="datePublished">2021-02-01</time>
         
-        (Updated: <time datetime="2021-02-01T09:50:04.930Z" itemprop="dateModified">2021-02-01</time>)
+        (Updated: <time datetime="2021-02-01T10:05:41.818Z" itemprop="dateModified">2021-02-01</time>)
         
       
     </div>
@@ -146,7 +148,15 @@
   
 
   <div class="content" itemprop="articleBody">
-    
+    <p>之前介绍了如何使用frp进行内网穿透，以及如何在vps上部署自己的动态网页应用等文章，其中都涉及到了如何让自己写的程序能自己在后台不断运行，挂掉之后能自动重启这样的问题，这个问题可以借助supervisor解决。</p>
+<p>这篇文章用一个极简的例子——一个不断计数的简单Python程序来解释supervisor最基本的用法。</p>
+<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>Ubuntu系统下</p>
+<blockquote>
+<p>sudo apt-get install supervisor</p>
+</blockquote>
+<h2 id="准备一个需要supervisor管理的简单程序"><a href="#准备一个需要supervisor管理的简单程序" class="headerlink" title="准备一个需要supervisor管理的简单程序"></a>准备一个需要supervisor管理的简单程序</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">        count+=<span class="number">1</span></span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line">        print(<span class="string">"test time elapsed: "</span>,count,flush=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+
   </div>
 </article>
 
@@ -171,7 +181,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#下载安装"><span class="toc-number">1.</span> <span class="toc-text">下载安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备一个需要supervisor管理的简单程序"><span class="toc-number">2.</span> <span class="toc-text">准备一个需要supervisor管理的简单程序</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
