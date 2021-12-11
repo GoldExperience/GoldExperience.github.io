@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="这篇文章备忘的主要内容1.一个xacro文件的example2.在rviz里显示这个模型 0.准备工作先在工作空间中建一个包，名字随便取，主要依赖urdf包建好之后在其中创建meshes（用来存放3d模型文件，stl，dae等），launch（用来存放launch文件和rviz配置文件）等文件夹之后照常catkin_make以及rospack profile 1.完整的xacro文件+解析mnm.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Basic of Xacro with Rviz">
+<meta property="og:url" content="http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/index.html">
+<meta property="og:site_name" content="P O R T">
+<meta property="og:description" content="这篇文章备忘的主要内容1.一个xacro文件的example2.在rviz里显示这个模型 0.准备工作先在工作空间中建一个包，名字随便取，主要依赖urdf包建好之后在其中创建meshes（用来存放3d模型文件，stl，dae等），launch（用来存放launch文件和rviz配置文件）等文件夹之后照常catkin_make以及rospack profile 1.完整的xacro文件+解析mnm.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-7db944430c4cc477.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-1d100fb24d870ad4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-e979fecaafa851ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-4acba0a0f8ad7e3e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-235a41c4a6549851.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-7a7a82740b16f5d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-09-07T16:26:39.000Z">
+<meta property="article:modified_time" content="2020-09-07T16:27:43.000Z">
+<meta property="article:author" content="Yujian Cheng">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8555575-7db944430c4cc477.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Basic of Xacro with Rviz</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/09/07/ROS-with-python-GUI-tkinter/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/09/07/ROS-robotic-arm-From-Scratch-01/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&text=Basic of Xacro with Rviz" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&title=Basic of Xacro with Rviz" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&is_video=false&description=Basic of Xacro with Rviz" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Basic of Xacro with Rviz&body=Check out this article: http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&title=Basic of Xacro with Rviz" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&title=Basic of Xacro with Rviz" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&title=Basic of Xacro with Rviz" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&title=Basic of Xacro with Rviz" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&name=Basic of Xacro with Rviz&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&t=Basic of Xacro with Rviz" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-准备工作"><span class="toc-number">1.</span> <span class="toc-text">0.准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-完整的xacro文件-解析"><span class="toc-number">2.</span> <span class="toc-text">1.完整的xacro文件+解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编写launch文件，启动rviz来显示这个模型"><span class="toc-number">3.</span> <span class="toc-text">编写launch文件，启动rviz来显示这个模型</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Basic of Xacro with Rviz
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">P O R T</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-09-07T16:26:39.000Z" itemprop="datePublished">2020-09-07</time>
+        
+        (Updated: <time datetime="2020-09-07T16:27:43.000Z" itemprop="dateModified">2020-09-07</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>这篇文章备忘的主要内容<br>1.一个xacro文件的example<br>2.在rviz里显示这个模型<br><img src="https://upload-images.jianshu.io/upload_images/8555575-7db944430c4cc477.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="最终完成的情况"></p>
+<h2 id="0-准备工作"><a href="#0-准备工作" class="headerlink" title="0.准备工作"></a>0.准备工作</h2><p>先在工作空间中建一个包，名字随便取，主要依赖urdf包<br>建好之后在其中创建meshes（用来存放3d模型文件，stl，dae等），launch（用来存放launch文件和rviz配置文件）等文件夹<br><img src="https://upload-images.jianshu.io/upload_images/8555575-1d100fb24d870ad4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="弄好之后大概这样"><br>之后照常catkin_make以及rospack profile</p>
+<h2 id="1-完整的xacro文件-解析"><a href="#1-完整的xacro文件-解析" class="headerlink" title="1.完整的xacro文件+解析"></a>1.完整的xacro文件+解析</h2><p>mnm.xacro</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;robot name&#x3D;&quot;mnm&quot; xmlns:xacro&#x3D;&quot;http:&#x2F;&#x2F;www.ros.org&#x2F;wiki&#x2F;xacro&quot;&gt;</span><br><span class="line">	&lt;link name&#x3D;&quot;base_link&quot;&gt;</span><br><span class="line">		&lt;visual&gt;</span><br><span class="line">			&lt;origin rpy&#x3D;&quot;0 0 0&quot; xyz&#x3D;&quot;0 0 0&quot; &#x2F;&gt;</span><br><span class="line">			&lt;geometry&gt;</span><br><span class="line">				&lt;box size&#x3D;&quot;1 1 1&quot;&#x2F;&gt;</span><br><span class="line">			&lt;&#x2F;geometry&gt;</span><br><span class="line">		&lt;&#x2F;visual&gt;</span><br><span class="line">	&lt;&#x2F;link&gt;</span><br><span class="line">	&lt;joint name&#x3D;&quot;base_link_to_link_01&quot; type&#x3D;&quot;revolute&quot;&gt;</span><br><span class="line">		&lt;axis xyz&#x3D;&quot;0 0 1&quot; &#x2F;&gt;</span><br><span class="line">		&lt;limit effort&#x3D;&quot;1000.0&quot; lower&#x3D;&quot;-3.14&quot; upper&#x3D;&quot;3.14&quot; velocity&#x3D;&quot;0.5&quot;&#x2F;&gt;</span><br><span class="line">		&lt;!-- let me explain these two lines above(12 and 13)</span><br><span class="line">		&lt;axis xyz&#x3D;&quot;0 0 1&quot; &#x2F;&gt;</span><br><span class="line">		&lt;limit effort&#x3D;&quot;1000.0&quot; lower&#x3D;&quot;-3.14&quot; upper&#x3D;&quot;3.14&quot; velocity&#x3D;&quot;0.5&quot;&#x2F;&gt;</span><br><span class="line">		because it&#39;s a revolute joint,so the axis means it can routate around z axis,</span><br><span class="line">		and the 3.14 means 180 degree</span><br><span class="line">		--&gt;</span><br><span class="line">		&lt;origin rpy&#x3D;&quot;0 0 0&quot; xyz&#x3D;&quot;0 0 0.5&quot;&#x2F;&gt;</span><br><span class="line">		&lt;!-- and why the  xyz &#x3D;&quot;0 0 0.5&quot; </span><br><span class="line">		because the base_link &#39;s origin is &quot;0 0 0&quot;,and the height is 1,so the top of it is 0.5</span><br><span class="line">		--&gt;</span><br><span class="line">		&lt;parent link&#x3D;&quot;base_link&quot; &#x2F;&gt;</span><br><span class="line">		&lt;child link&#x3D;&quot;link_01&quot;&#x2F;&gt;</span><br><span class="line">	&lt;&#x2F;joint&gt;</span><br><span class="line">	&lt;link name&#x3D;&quot;link_01&quot;&gt;</span><br><span class="line">		&lt;visual&gt;</span><br><span class="line">			&lt;origin rpy&#x3D;&quot;0 0 0&quot; xyz&#x3D;&quot;0 0 0.2&quot; &#x2F;&gt;</span><br><span class="line">			&lt;geometry&gt;</span><br><span class="line">				&lt;cylinder radius&#x3D;&quot;0.35&quot; length&#x3D;&quot;0.4&quot; &#x2F;&gt;</span><br><span class="line">			&lt;&#x2F;geometry&gt;</span><br><span class="line">		&lt;&#x2F;visual&gt;</span><br><span class="line">	&lt;&#x2F;link&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;robot&gt;</span><br></pre></td></tr></table></figure>
+<p>解释：<br>ROS里我们想为机器人建模需要一个urdf文件。<br>xacro文件是用来简化urdf文件的，如果没有xacro，就会有很多不必要的重复性劳动，但是这个简单的xacro看上去和一个urdf也没什么区别。<br>如上图所见，这段urdf的意思是两个link，分别是作为底座的长方体base_link和上面的圆柱体link_01。<br>具体的解释在roswiki里搜索关键词“urdf/XML”，可以找到每个tag的具体细节。<br><a href="http://wiki.ros.org/urdf/XML" target="_blank" rel="noopener">http://wiki.ros.org/urdf/XML</a></p>
+<h2 id="编写launch文件，启动rviz来显示这个模型"><a href="#编写launch文件，启动rviz来显示这个模型" class="headerlink" title="编写launch文件，启动rviz来显示这个模型"></a>编写launch文件，启动rviz来显示这个模型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;launch&gt;</span><br><span class="line">	&lt;param name&#x3D;&quot;robot_description&quot; command&#x3D;&quot;$(find xacro)&#x2F;xacro --inorder &#39;$(find urdf_my_test)&#x2F;urdf&#x2F;mnm.xacro&#39;&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;node name&#x3D;&quot;robot_state_publisher&quot; pkg&#x3D;&quot;robot_state_publisher&quot; type&#x3D;&quot;state_publisher&quot;&#x2F;&gt;</span><br><span class="line">	&lt;node name&#x3D;&quot;rviz&quot; pkg&#x3D;&quot;rviz&quot; type&#x3D;&quot;rviz&quot; args&#x3D;&quot;-d $(find urdf_my_test)&#x2F;launch&#x2F;config.rviz&quot; &#x2F;&gt;</span><br><span class="line">	&lt;!-- &lt;node name&#x3D;&quot;rviz&quot; pkg&#x3D;&quot;rviz&quot; type&#x3D;&quot;rviz&quot;&#x2F;&gt; --&gt;&lt;!--一开始先不用args，等到设置好rviz之后另存为配置文件到launch文件夹里再用args，这样就不用每次都设置那么多了&gt;</span><br><span class="line">	&lt;node name&#x3D;&quot;joint_state_publisher&quot; pkg&#x3D;&quot;joint_state_publisher&quot; type&#x3D;&quot;joint_state_publisher&quot;&gt;</span><br><span class="line">		&lt;param name&#x3D;&quot;use_gui&quot; value&#x3D;&quot;true&quot;&#x2F;&gt;</span><br><span class="line">	&lt;&#x2F;node&gt;</span><br><span class="line">&lt;&#x2F;launch&gt;</span><br></pre></td></tr></table></figure>
+<p>等rviz启动完毕之后先将FixedFrame改为base_link<br><img src="https://upload-images.jianshu.io/upload_images/8555575-e979fecaafa851ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>再点击下方Add按钮，添加一个RobotModel<br><img src="https://upload-images.jianshu.io/upload_images/8555575-4acba0a0f8ad7e3e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>可以看到之前在launch文件里传入的参数Robot Description已经在robotmodel里了<br><img src="https://upload-images.jianshu.io/upload_images/8555575-235a41c4a6549851.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="param name=&quot;robot_description&quot;"><br>而joint_state_publisher可以用来转动上面那个圆柱体的link<br><img src="https://upload-images.jianshu.io/upload_images/8555575-7a7a82740b16f5d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="joint_state_publisher"><br>添加好之后可以将配置文件另存为到launch文件夹里，以后再运行的时候在launch文件里的rviz节点下增加一个args（配置文件config.rviz的路径）就可以不用再设置一遍了。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-准备工作"><span class="toc-number">1.</span> <span class="toc-text">0.准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-完整的xacro文件-解析"><span class="toc-number">2.</span> <span class="toc-text">1.完整的xacro文件+解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编写launch文件，启动rviz来显示这个模型"><span class="toc-number">3.</span> <span class="toc-text">编写launch文件，启动rviz来显示这个模型</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&text=Basic of Xacro with Rviz" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&title=Basic of Xacro with Rviz" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&is_video=false&description=Basic of Xacro with Rviz" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Basic of Xacro with Rviz&body=Check out this article: http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&title=Basic of Xacro with Rviz" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&title=Basic of Xacro with Rviz" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&title=Basic of Xacro with Rviz" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&title=Basic of Xacro with Rviz" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&name=Basic of Xacro with Rviz&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/09/07/Basic-of-Xacro-with-Rviz/&t=Basic of Xacro with Rviz" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Yujian Cheng
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Soft robot is a new member of robot family. Soft robot has many advantages inflexibility, adaptability and safety. This paper introduces the design and implementationof a soft mechanical gripper contr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Soft Robotic Gripper Design">
+<meta property="og:url" content="http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/index.html">
+<meta property="og:site_name" content="P O R T">
+<meta property="og:description" content="Soft robot is a new member of robot family. Soft robot has many advantages inflexibility, adaptability and safety. This paper introduces the design and implementationof a soft mechanical gripper contr">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190157.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190245.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190316.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190343.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190418.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190449.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190511.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190546.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907185945.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190055.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190133.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-5120f9de9a2f7e90.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190638.png">
+<meta property="article:published_time" content="2020-09-07T09:42:34.000Z">
+<meta property="article:modified_time" content="2020-09-11T10:54:39.000Z">
+<meta property="article:author" content="Yujian Cheng">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190157.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Soft Robotic Gripper Design</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/09/07/RIMA-ROBOT/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/09/07/Motion-Sensor-Application/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&text=Soft Robotic Gripper Design" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&title=Soft Robotic Gripper Design" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&is_video=false&description=Soft Robotic Gripper Design" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Soft Robotic Gripper Design&body=Check out this article: http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&title=Soft Robotic Gripper Design" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&title=Soft Robotic Gripper Design" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&title=Soft Robotic Gripper Design" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&title=Soft Robotic Gripper Design" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&name=Soft Robotic Gripper Design&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&t=Soft Robotic Gripper Design" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#柔性机械抓取装置的制作"><span class="toc-number">1.</span> <span class="toc-text">柔性机械抓取装置的制作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-腔体部分"><span class="toc-number">1.1.</span> <span class="toc-text">1. 腔体部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-组装成机械爪"><span class="toc-number">1.2.</span> <span class="toc-text">3. 组装成机械爪</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于ROS和Arduino的气动控制系统"><span class="toc-number">2.</span> <span class="toc-text">基于ROS和Arduino的气动控制系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用linqstat-Velostat制做-flex-sensor-弯曲传感器"><span class="toc-number">3.</span> <span class="toc-text">使用linqstat&#x2F;Velostat制做 flex sensor 弯曲传感器</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Soft Robotic Gripper Design
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">P O R T</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-09-07T09:42:34.000Z" itemprop="datePublished">2020-09-07</time>
+        
+        (Updated: <time datetime="2020-09-11T10:54:39.000Z" itemprop="dateModified">2020-09-11</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>Soft robot is a new member of robot family. Soft robot has many advantages in<br>flexibility, adaptability and safety. This paper introduces the design and implementation<br>of a soft mechanical gripper controlled by gesture recognition gloves and a pneumatic<br>control system. The system is composed of pneumatic soft actuators, pneumatic<br>controllers, and gesture recognition gloves. Arduino is used as the controller to control<br>the pneumatic circuit and receive sensor data. In combination with the messaging<br>mechanism of the robot operating system (ROS), python is used to write the graphical<br>interactive interface for the pneumatic control system. In addition, this paper builds a test<br>platform and writes a program based on computer vision to test the performance of<br>software actuator. The finger curvature can be obtained through gesture recognition<br>gloves, and the pneumatic control system regulates the air pressure to make the soft<br>actuator bend and deform, so that the gesture can control the posture of the three soft<br>actuator of the gripper, which can act as a flexible gripper for fragile objects without<br>damaging any objects.</p>
+<h2 id="柔性机械抓取装置的制作"><a href="#柔性机械抓取装置的制作" class="headerlink" title="柔性机械抓取装置的制作"></a>柔性机械抓取装置的制作</h2><p>Watch it on Youtube：<a href="https://youtu.be/--mWgDyNIzY" target="_blank" rel="noopener">https://youtu.be/--mWgDyNIzY</a></p>
+<!-- ![](https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907151330.png) -->
+<iframe width="560" height="315" src="https://www.youtube.com/embed/--mWgDyNIzY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+<p>![成品图]<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190157.png" alt=""><br><a href="https://youtu.be/--mWgDyNIzY" target="_blank" rel="noopener">视频展示</a><br>该柔性机械抓取装置的结构近似于PneuNets Bending Actuator，通过改变嵌入腔室的几何形状和其壁的材料特性来控制该运动的性质。当PneuNets致动器加压时，在最柔软的区域中发生膨胀，同时在另一侧加应变限制层，从而产生形状变化。<br><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190245.png" alt=""></p>
+<p>##制作方法：</p>
+<h3 id="1-腔体部分"><a href="#1-腔体部分" class="headerlink" title="1. 腔体部分"></a>1. 腔体部分</h3><ol>
+<li>设计模具<br><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190316.png" alt=""><br>在腔体下方留出通道供气体进入，在尾部设计一个结构让硅胶软管能够通入。</li>
+<li>将硅胶的A胶和B胶1:1混合，加入绿色油性色素，搅拌均匀。</li>
+<li>搅拌过程中产生很多气泡，将搅拌过的硅胶放入真空中，随着负压增大气泡会逐渐变大浮在表面上，然后破裂消失。<br><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190343.png" alt=""></li>
+<li>将没有气泡的硅胶倒入3d打印好的模具中，凝固后取出。这样延展性强的腔体部分就完成了。<br><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190418.png" alt=""></li>
+</ol>
+<p>####2. 应变限制层部分</p>
+<ol>
+<li>设计制作模具，应变限制层的尺寸和腔体部分相同。</li>
+<li>制备硅胶，倒入模具中，再放入腔体部分，凝固后取出。</li>
+<li>此时充气腔体部分会整体膨胀，不会发生弯曲。</li>
+<li>裁剪不会拉伸的材料放入模具内，倒入硅胶，再一次放入腔体，凝固后它们会变成一个整体。并可以正常弯曲。<br><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190449.png" alt=""></li>
+</ol>
+<h3 id="3-组装成机械爪"><a href="#3-组装成机械爪" class="headerlink" title="3. 组装成机械爪"></a>3. 组装成机械爪</h3><ol>
+<li>设计连接部分，在内部留出空间给管道。<br><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190511.png" alt=""></li>
+<li>将之前做好的柔性制动器装上，再装在机械臂上。</li>
+<li>接入管道，将管道接入气动控制系统。<br><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190546.png" alt=""><h2 id="基于ROS和Arduino的气动控制系统"><a href="#基于ROS和Arduino的气动控制系统" class="headerlink" title="基于ROS和Arduino的气动控制系统"></a>基于ROS和Arduino的气动控制系统</h2></li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907185945.png" alt=""><br>![气动控制板设计结构]<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190055.png" alt=""><br>![气动控制板框架图]<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190133.png" alt=""><br>由于该柔性机器抓取装置使用气动网络执行机构和启动形变传感器，我们需要设计和制作一个通用的气动控制板。这个控制板上包含气动回路用以控制执行机构。气动控制板由气泵，电磁阀，压强传感器，微控制板，继电器，双路H桥，电源，各种管道，连接部件组成。微控制板读取压强传感器的数值，控制气泵，电磁阀和执行机构组成的气动回路来控制回路中的压强从而控制执行机构的形状。</p>
+<h2 id="使用linqstat-Velostat制做-flex-sensor-弯曲传感器"><a href="#使用linqstat-Velostat制做-flex-sensor-弯曲传感器" class="headerlink" title="使用linqstat/Velostat制做 flex sensor 弯曲传感器"></a>使用linqstat/Velostat制做 flex sensor 弯曲传感器</h2><p>材料：<br>铜箔<br>硅胶<br>3d打印模具<br>linqstat/Velostat压敏电阻片<br>美纹纸胶带<br>导线<br><img src="https://upload-images.jianshu.io/upload_images/8555575-5120f9de9a2f7e90.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>制作方法：</p>
+<ol>
+<li>将linqstat根据需要裁剪成长方型，2~4片一样的备用。</li>
+<li>将铜箔裁剪成两条比linqstat窄的同样长度的长方形备用。</li>
+<li>将切好的铜箔一端焊上导线。</li>
+<li>将它们像三明治一样叠在一起。</li>
+<li>将硅胶的A胶与B胶混合，放入真空罐中消泡。</li>
+<li>在模具中倒入一层硅胶，放入刚刚做好的flex sensor，再倒入另一层硅胶。</li>
+<li>静置几个小时，硅胶凝固，完成。<br>接入Arduino，将测量到的电阻值写入舵机角度。<br><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20200907190638.png" alt=""></li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#柔性机械抓取装置的制作"><span class="toc-number">1.</span> <span class="toc-text">柔性机械抓取装置的制作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-腔体部分"><span class="toc-number">1.1.</span> <span class="toc-text">1. 腔体部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-组装成机械爪"><span class="toc-number">1.2.</span> <span class="toc-text">3. 组装成机械爪</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于ROS和Arduino的气动控制系统"><span class="toc-number">2.</span> <span class="toc-text">基于ROS和Arduino的气动控制系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用linqstat-Velostat制做-flex-sensor-弯曲传感器"><span class="toc-number">3.</span> <span class="toc-text">使用linqstat&#x2F;Velostat制做 flex sensor 弯曲传感器</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&text=Soft Robotic Gripper Design" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&title=Soft Robotic Gripper Design" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&is_video=false&description=Soft Robotic Gripper Design" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Soft Robotic Gripper Design&body=Check out this article: http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&title=Soft Robotic Gripper Design" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&title=Soft Robotic Gripper Design" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&title=Soft Robotic Gripper Design" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&title=Soft Robotic Gripper Design" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&name=Soft Robotic Gripper Design&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/09/07/Soft-Robotic-Gripper-Design/&t=Soft Robotic Gripper Design" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Yujian Cheng
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

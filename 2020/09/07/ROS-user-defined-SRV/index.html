@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="step1到目标package下mkdir srv创建一个srv文件   step2  修改CMakeLists.txt   step3修改package.xml添加这两句12&lt;build_depend&gt;message_generation&lt;&#x2F;build_depend&gt;&lt;exec_depend&gt;message_runtime&lt;&#x2F;exe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS user defined SRV">
+<meta property="og:url" content="http://yoursite.com/2020/09/07/ROS-user-defined-SRV/index.html">
+<meta property="og:site_name" content="P O R T">
+<meta property="og:description" content="step1到目标package下mkdir srv创建一个srv文件   step2  修改CMakeLists.txt   step3修改package.xml添加这两句12&lt;build_depend&gt;message_generation&lt;&#x2F;build_depend&gt;&lt;exec_depend&gt;message_runtime&lt;&#x2F;exe">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-01fc04c7f65f261c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-0b1a715a68a847c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-d340bd129bd7a53a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-460517fc1c023eba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-1a2d2a93f400945b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-0256c9b67637a1db.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-6a286a2b77750e8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-09-07T16:31:52.000Z">
+<meta property="article:modified_time" content="2020-09-07T16:32:55.000Z">
+<meta property="article:author" content="Yujian Cheng">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8555575-01fc04c7f65f261c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>ROS user defined SRV</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/09/07/ROS-user-defined-message/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/09/07/ROS-melodic-Ubuntu18-04-Kinectv1-freenect/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&text=ROS user defined SRV" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&title=ROS user defined SRV" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&is_video=false&description=ROS user defined SRV" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ROS user defined SRV&body=Check out this article: http://yoursite.com/2020/09/07/ROS-user-defined-SRV/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&title=ROS user defined SRV" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&title=ROS user defined SRV" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&title=ROS user defined SRV" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&title=ROS user defined SRV" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&name=ROS user defined SRV&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&t=ROS user defined SRV" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#在Python中call一个service"><span class="toc-number">1.</span> <span class="toc-text">在Python中call一个service</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写一个service-server"><span class="toc-number">2.</span> <span class="toc-text">写一个service server</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        ROS user defined SRV
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">P O R T</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-09-07T16:31:52.000Z" itemprop="datePublished">2020-09-07</time>
+        
+        (Updated: <time datetime="2020-09-07T16:32:55.000Z" itemprop="dateModified">2020-09-07</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <ul>
+<li>step1<br>到目标package下<br>mkdir srv<br>创建一个srv文件<br><img src="https://upload-images.jianshu.io/upload_images/8555575-01fc04c7f65f261c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
+</ul>
+<ul>
+<li>step2</li>
+</ul>
+<p>修改CMakeLists.txt</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8555575-0b1a715a68a847c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br><img src="https://upload-images.jianshu.io/upload_images/8555575-d340bd129bd7a53a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br><img src="https://upload-images.jianshu.io/upload_images/8555575-460517fc1c023eba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br><img src="https://upload-images.jianshu.io/upload_images/8555575-1a2d2a93f400945b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li>step3<br>修改package.xml<br>添加这两句<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;build_depend&gt;message_generation&lt;&#x2F;build_depend&gt;</span><br><span class="line">&lt;exec_depend&gt;message_runtime&lt;&#x2F;exec_depend&gt;</span><br></pre></td></tr></table></figure></li>
+<li>step4</li>
+</ul>
+<p>到工作空间目录下<br>catkin_make</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8555575-0256c9b67637a1db.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="在Python中call一个service"><a href="#在Python中call一个service" class="headerlink" title="在Python中call一个service"></a>在Python中call一个service</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import rospy</span><br><span class="line">from gazebo_msgs.srv import DeleteModel ,DeleteModelRequest</span><br><span class="line">from roscpp.srv import GetLoggers,GetLoggersRequest</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">rospy.init_node(&#39;service_client&#39;)</span><br><span class="line">rospy.wait_for_service(&#39;&#x2F;gazebo&#x2F;delete_model&#39;)</span><br><span class="line">delete_model_service&#x3D;rospy.ServiceProxy(&#39;&#x2F;gazebo&#x2F;delete_model&#39;,DeleteModel)</span><br><span class="line">kk&#x3D;DeleteModelRequest()</span><br><span class="line">kk.model_name&#x3D;&quot;unit_box&quot;</span><br><span class="line">result&#x3D;delete_model_service(kk)</span><br><span class="line">print(result)</span><br><span class="line"></span><br><span class="line">rospy.wait_for_service(&#39;gazebo_gui&#x2F;get_loggers&#39;)</span><br><span class="line">get_loggers_service&#x3D;rospy.ServiceProxy(&#39;gazebo_gui&#x2F;get_loggers&#39;,GetLoggers)</span><br><span class="line"># gg&#x3D;GetLoggersRequest()</span><br><span class="line">result&#x3D;get_loggers_service()</span><br><span class="line">print(&#39;get Result:\n&#123;&#125;&#39;.format(result))</span><br></pre></td></tr></table></figure>
+<p>上面这段代码是两个例子，一个是GAZEBO删除模型，一个是/rosout/get_loggers<br><img src="https://upload-images.jianshu.io/upload_images/8555575-6a286a2b77750e8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>首先是检查service是否可用，wait_for_service 的作用如下：</p>
+<blockquote>
+<p>Blocks until service is available. Use this in initialization code if your program depends on a service already running</p>
+</blockquote>
+<p>如果你的service需要request的话，就要import &lt;你的service的名字&gt;Request<br>然后使用它。</p>
+<h2 id="写一个service-server"><a href="#写一个service-server" class="headerlink" title="写一个service server"></a>写一个service server</h2><p>上面我们加了一个srv文件，现在我们来为它写一个service server。<br>这个srv需要传入一个float64，一个int32，然后执行一系列操作后返回成功或失败（这个例子里只有True）<br>具体来说就是让turtlesim里的小海龟画一个正方形，radius是这个正方形的边长，repetitions决定走几遍。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#! &#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line">import rospy</span><br><span class="line">from test_package.srv import my_custom_service_message,my_custom_service_messageRequest,my_custom_service_messageResponse</span><br><span class="line">from geometry_msgs.msg import Twist</span><br><span class="line">from math import radians</span><br><span class="line"></span><br><span class="line">def my_cus_callback(req):</span><br><span class="line">    print(req.radius)</span><br><span class="line">    print(req.repetitions)</span><br><span class="line">    turtle1_draw_square(req.radius,req.repetitions)</span><br><span class="line">    return my_custom_service_messageResponse(True)</span><br><span class="line"></span><br><span class="line">def turtle1_draw_square(radius,repetitions):</span><br><span class="line">    pub &#x3D; rospy.Publisher(&#39;&#x2F;turtle1&#x2F;cmd_vel&#39;, Twist, queue_size&#x3D;10)</span><br><span class="line">    rate &#x3D; rospy.Rate(10)</span><br><span class="line">    move_cmd &#x3D; Twist()</span><br><span class="line">    move_cmd.linear.x &#x3D; radius</span><br><span class="line">    turn_cmd &#x3D; Twist()</span><br><span class="line">    turn_cmd.angular.z &#x3D; radians(90)</span><br><span class="line">    print(&#39;go forward&#39;)</span><br><span class="line">    for rep in range(repetitions):</span><br><span class="line">        for i in range(4):</span><br><span class="line">            for x in range(20):</span><br><span class="line">                pub.publish(move_cmd)</span><br><span class="line">                rate.sleep()</span><br><span class="line">            print(&#39;turn right&#39;)</span><br><span class="line">            for z in range(10):</span><br><span class="line">                pub.publish(turn_cmd)</span><br><span class="line">                rate.sleep()</span><br><span class="line"></span><br><span class="line">rospy.init_node(&#39;service_server&#39;)</span><br><span class="line">my_cus_service&#x3D;rospy.Service(&#39;my_cus_service&#39;,my_custom_service_message,my_cus_callback)</span><br><span class="line">rospy.spin()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#在Python中call一个service"><span class="toc-number">1.</span> <span class="toc-text">在Python中call一个service</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写一个service-server"><span class="toc-number">2.</span> <span class="toc-text">写一个service server</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&text=ROS user defined SRV" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&title=ROS user defined SRV" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&is_video=false&description=ROS user defined SRV" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ROS user defined SRV&body=Check out this article: http://yoursite.com/2020/09/07/ROS-user-defined-SRV/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&title=ROS user defined SRV" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&title=ROS user defined SRV" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&title=ROS user defined SRV" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&title=ROS user defined SRV" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&name=ROS user defined SRV&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/09/07/ROS-user-defined-SRV/&t=ROS user defined SRV" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Yujian Cheng
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

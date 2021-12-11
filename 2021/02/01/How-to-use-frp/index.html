@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="title: How to use frpdate: 2021-01-30 21:27:10tags: Frp是一款高性能反向代理应用，如果想用自己内网的电脑作为服务器，但是没有ISP给的公网ip，同时租的云服务器性能又太弱，那么就可以使用frp进行内网穿透。也就是说，无论在其他什么地方，都可以通过云服务器的公网ip地址访问到你存在于内网中的服务器（比如你的个人电脑）上运行的服务。 提供frp服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How-to-use-frp">
+<meta property="og:url" content="http://yoursite.com/2021/02/01/How-to-use-frp/index.html">
+<meta property="og:site_name" content="P O R T">
+<meta property="og:description" content="title: How to use frpdate: 2021-01-30 21:27:10tags: Frp是一款高性能反向代理应用，如果想用自己内网的电脑作为服务器，但是没有ISP给的公网ip，同时租的云服务器性能又太弱，那么就可以使用frp进行内网穿透。也就是说，无论在其他什么地方，都可以通过云服务器的公网ip地址访问到你存在于内网中的服务器（比如你的个人电脑）上运行的服务。 提供frp服务">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210131202743655.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210201094616702.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210131211049946.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210131211807354.png">
+<meta property="article:published_time" content="2021-02-01T09:50:48.000Z">
+<meta property="article:modified_time" content="2021-02-01T09:50:48.000Z">
+<meta property="article:author" content="Yujian Cheng">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210131202743655.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>How-to-use-frp</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2021/02/04/Web-Spider-based-on-Selenium/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2021/02/01/extremely-simple-Example-of-how-to-use-supervisor/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/02/01/How-to-use-frp/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2021/02/01/How-to-use-frp/&text=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/02/01/How-to-use-frp/&is_video=false&description=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=How-to-use-frp&body=Check out this article: http://yoursite.com/2021/02/01/How-to-use-frp/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/02/01/How-to-use-frp/&name=How-to-use-frp&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/02/01/How-to-use-frp/&t=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#在Linux服务器上下载安装"><span class="toc-number">1.</span> <span class="toc-text">在Linux服务器上下载安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何写配置文件"><span class="toc-number">2.</span> <span class="toc-text">如何写配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#frps-ini"><span class="toc-number">2.1.</span> <span class="toc-text">frps.ini</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#frpc-ini"><span class="toc-number">2.2.</span> <span class="toc-text">frpc.ini</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行"><span class="toc-number">3.</span> <span class="toc-text">运行</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        How-to-use-frp
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">P O R T</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-02-01T09:50:48.000Z" itemprop="datePublished">2021-02-01</time>
+        
+        (Updated: <time datetime="2021-02-01T09:50:48.000Z" itemprop="dateModified">2021-02-01</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>title: How to use frp<br>date: 2021-01-30 21:27:10<br>tags:</p>
+<p>Frp是一款高性能反向代理应用，如果想用自己内网的电脑作为服务器，但是没有ISP给的公网ip，同时租的云服务器性能又太弱，那么就可以使用frp进行内网穿透。<br>也就是说，无论在其他什么地方，都可以通过云服务器的公网ip地址访问到你存在于内网中的服务器（比如你的个人电脑）上运行的服务。</p>
+<p>提供frp服务的，具有公网ip的云服务器在这里被称为server，服务端。</p>
+<p>使用frp服务的，也就是从外网真正要访问的这里呗称为client，客户端</p>
+<h2 id="在Linux服务器上下载安装"><a href="#在Linux服务器上下载安装" class="headerlink" title="在Linux服务器上下载安装"></a>在Linux服务器上下载安装</h2><p><a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a></p>
+<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210131202743655.png" alt="image-20210131202743655" style="zoom: 67%;" />
+
+<p>无论是客户端还是服务端都需要下载frp，需要选择对应框架的压缩包。如果不知道自己当前服务器的框架，可以用<strong>uname -a</strong>查看。比如这里的x86_64，对应的是其中的amd64版本。</p>
+<blockquote>
+<p> ➜  ~ uname -a<br>Linux tom1 4.4.0-109-generic #132-Ubuntu SMP Tue Jan 9 19:52:39 UTC 2018 <strong>x86_64 x86_64 x86_64</strong> GNU/Linux</p>
+</blockquote>
+<p>下载好后，使用<strong>tar -zxvf {filename}</strong>命令对刚刚下好的后缀名为tar.gz的文件进行解压，解压后的文件目录结构如下：</p>
+<blockquote>
+<p>➜  ~ tree frp_0.35.1_linux_amd64<br>frp_0.35.1_linux_amd64<br>├── frpc<br>├── frpc_full.ini<br>├── frpc.ini<br>├── frps<br>├── frps_full.ini<br>├── frps.ini<br>├── LICENSE<br>└── systemd<br>    ├── frpc.service<br>    ├── frpc@.service<br>    ├── frps.service<br>    └── frps@.service</p>
+</blockquote>
+<p>其中，frp服务端目前只需要关注frps和frps.ini这两个文件，frp客户端则只需要关注frpc和frpc.ini这两个文件，没有扩展名的是可执行文件，有扩展名的为配置文件。</p>
+<p><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210201094616702.png" alt="image-20210201094616702"></p>
+<h2 id="如何写配置文件"><a href="#如何写配置文件" class="headerlink" title="如何写配置文件"></a>如何写配置文件</h2><h3 id="frps-ini"><a href="#frps-ini" class="headerlink" title="frps.ini"></a>frps.ini</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port &#x3D; 7000</span><br><span class="line">token &#x3D; 2077</span><br><span class="line">vhost_http_port &#x3D; 10080 #提供http服务</span><br><span class="line">vhost_https_port &#x3D; 10443 #提供http服务</span><br><span class="line">dashboard_port &#x3D; 7500 </span><br><span class="line">dashboard_user &#x3D; admin</span><br><span class="line">dashboard_pwd &#x3D; admin</span><br></pre></td></tr></table></figure>
+
+<p>其中，bind_port是绑定的端口，与frpc.ini中务必保持一致。</p>
+<p>token是自定义的，也需要保持一致，可以防范其他不知道token的人。</p>
+<p>dashboard相关的是启动一个frp的后台，比如将dashboard_port设置为7500，可以通过{公网ip}:7500访问frp服务的dashboard，可以测试frp服务是否正常，也可以用于监控。</p>
+<h3 id="frpc-ini"><a href="#frpc-ini" class="headerlink" title="frpc.ini"></a>frpc.ini</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr &#x3D; 192.210.215.26 # 服务端的ip</span><br><span class="line">server_port &#x3D; 7000 # 与服务端保持一致</span><br><span class="line">token &#x3D; 2077 # 与服务端保持一致</span><br><span class="line"></span><br><span class="line">[web] # 需要内网穿透的服务，不只有这种，名字可以随意起</span><br><span class="line">type &#x3D; http</span><br><span class="line">local_port &#x3D; 5000 # 应用程序的端口</span><br><span class="line">custom_domains &#x3D; 192.210.215.26 # 有域名的话用域名，没有的话用服务端的ip</span><br></pre></td></tr></table></figure>
+
+
+
+<p>以上这些端口注意不要被防火墙给拦了，可以用<strong>sudo ufw status</strong>确认自己防火墙的状态。</p>
+<blockquote>
+<p>➜  frp_0.35.1_linux_amd64 sudo ufw status<br>Status: active</p>
+</blockquote>
+<blockquote>
+<p>To                         Action      From</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>22                         ALLOW       Anywhere<br>80/tcp                     ALLOW       Anywhere<br>6000                       ALLOW       Anywhere<br>7500                       ALLOW       Anywhere<br>10080                      ALLOW       Anywhere<br>7000                       ALLOW       Anywhere<br>22 (v6)                    ALLOW       Anywhere (v6)<br>80/tcp (v6)                ALLOW       Anywhere (v6)<br>6000 (v6)                  ALLOW       Anywhere (v6)<br>7500 (v6)                  ALLOW       Anywhere (v6)<br>10080 (v6)                 ALLOW       Anywhere (v6)<br>7000 (v6)                  ALLOW       Anywhere (v6)</p>
+</blockquote>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>配置好之后就可以直接运行了，首先运行客户端的frps</p>
+<blockquote>
+<p>➜  frp_0.35.1_linux_amd64 ./frps -c ./frps.ini<br>2021/01/31 21:07:02 [I] [root.go:108] frps uses config file: ./frps.ini<br>2021/01/31 21:07:02 [I] [service.go:190] frps tcp listen on 0.0.0.0:7000<br>2021/01/31 21:07:02 [I] [service.go:232] http service listen on 0.0.0.0:10080<br>2021/01/31 21:07:02 [I] [service.go:253] https service listen on 0.0.0.0:10443<br>2021/01/31 21:07:02 [I] [service.go:289] Dashboard listen on 0.0.0.0:7500<br>2021/01/31 21:07:02 [I] [root.go:217] frps started successfully</p>
+</blockquote>
+<p>之后在浏览器里输入服务器的{公网ip}:{dashbroad_port(这个例子里是7500)}，就可以看到后台界面了</p>
+<p><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210131211049946.png" alt="image-20210131211049946"></p>
+<p>之后再在客户端启动frpc</p>
+<blockquote>
+<p> ➜  frp_0.35.1_linux_arm ./frpc -c frpc.ini<br>2021/01/31 21:11:23 [I] [service.go:290] [3ba3670488a71f62] login to server success, get run id [3ba3670488a71f62], server udp port [0]<br>2021/01/31 21:11:23 [I] [proxy_manager.go:144] [3ba3670488a71f62] proxy added: [web]<br>2021/01/31 21:11:23 [I] [control.go:180] [3ba3670488a71f62] [web] start proxy success</p>
+</blockquote>
+<p>看到这个之后就说明内网穿透成功了，之后再运行一个5000端口的程序，比如最简单的Python自带的httpserver</p>
+<blockquote>
+<p>(base) ➜  PiCamera git:(master) ✗ python -m http.server 5000<br>Serving HTTP on 0.0.0.0 port 5000 (<a href="http://0.0.0.0:5000/" target="_blank" rel="noopener">http://0.0.0.0:5000/</a>) …<br>127.0.0.1 - - [31/Jan/2021 21:15:57] “GET / HTTP/1.1” 200 -</p>
+</blockquote>
+<p>然后我们在浏览器里输入{服务端公网ip: vhost_http_port}</p>
+<p><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210131211807354.png" alt="image-20210131211807354"></p>
+<p>可以看到虽然我们是在客户端（自己的pc，旧笔记本或者树莓派之类的）上运行的这个Python服务，里面可以访问的也是客户端的资源，但实际上用的却是服务端的ip地址，这就说明已经成功了。</p>
+<p>但要注意端口是frps.ini里设置的vhost_http_port，是10080，而不是服务端里实际运行的服务的端口5000。</p>
+<p>如果想一致保持内网穿透的状态，让frp服务一直自己在后台运行，能用的方法有很多，比如使用supervisor管理。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#在Linux服务器上下载安装"><span class="toc-number">1.</span> <span class="toc-text">在Linux服务器上下载安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何写配置文件"><span class="toc-number">2.</span> <span class="toc-text">如何写配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#frps-ini"><span class="toc-number">2.1.</span> <span class="toc-text">frps.ini</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#frpc-ini"><span class="toc-number">2.2.</span> <span class="toc-text">frpc.ini</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行"><span class="toc-number">3.</span> <span class="toc-text">运行</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/02/01/How-to-use-frp/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2021/02/01/How-to-use-frp/&text=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/02/01/How-to-use-frp/&is_video=false&description=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=How-to-use-frp&body=Check out this article: http://yoursite.com/2021/02/01/How-to-use-frp/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2021/02/01/How-to-use-frp/&title=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/02/01/How-to-use-frp/&name=How-to-use-frp&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/02/01/How-to-use-frp/&t=How-to-use-frp" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Yujian Cheng
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

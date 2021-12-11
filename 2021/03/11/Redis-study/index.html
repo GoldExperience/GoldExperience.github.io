@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="这篇blog摘抄自《Redis开发与运维》，供自己学习使用。  Redis: Remote Dictionary Server  将数据分为热数据和冷数据，比如视频信息是热数据，放在redis中可以加快读写。  5种数据结构：  字符串 string  Bitmap 位图 HyperLogLog   哈希 hash  列表 list  集合 set  有序集合 zset      实际上每种数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis study">
+<meta property="og:url" content="http://yoursite.com/2021/03/11/Redis-study/index.html">
+<meta property="og:site_name" content="P O R T">
+<meta property="og:description" content="这篇blog摘抄自《Redis开发与运维》，供自己学习使用。  Redis: Remote Dictionary Server  将数据分为热数据和冷数据，比如视频信息是热数据，放在redis中可以加快读写。  5种数据结构：  字符串 string  Bitmap 位图 HyperLogLog   哈希 hash  列表 list  集合 set  有序集合 zset      实际上每种数据">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311141000387.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311141053562.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311100114986.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311142325597.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210312155735502.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210313152433108.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210313154353253.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210313200057532.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210313203605144.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210314143218147.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210314152617475.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210314154449203.png">
+<meta property="article:published_time" content="2021-03-11T09:56:52.000Z">
+<meta property="article:modified_time" content="2021-03-14T15:47:14.000Z">
+<meta property="article:author" content="Yujian Cheng">
+<meta property="article:tag" content="DataBase, DCS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311141000387.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Redis study</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2021/09/22/How-to-paint-texture-in-Blender/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2021/03/10/lean-use-tmux/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/03/11/Redis-study/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2021/03/11/Redis-study/&text=Redis study" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/03/11/Redis-study/&title=Redis study" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/03/11/Redis-study/&is_video=false&description=Redis study" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Redis study&body=Check out this article: http://yoursite.com/2021/03/11/Redis-study/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2021/03/11/Redis-study/&title=Redis study" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2021/03/11/Redis-study/&title=Redis study" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/03/11/Redis-study/&title=Redis study" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2021/03/11/Redis-study/&title=Redis study" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/03/11/Redis-study/&name=Redis study&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/03/11/Redis-study/&t=Redis study" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#复制原理"><span class="toc-number">1.</span> <span class="toc-text">复制原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内存"><span class="toc-number">2.</span> <span class="toc-text">内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#哨兵-Sentinel"><span class="toc-number">3.</span> <span class="toc-text">哨兵 Sentinel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sentinel-原理"><span class="toc-number">3.1.</span> <span class="toc-text">Sentinel 原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-分布式方案"><span class="toc-number">4.</span> <span class="toc-text">Redis 分布式方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟槽分区-SLOT"><span class="toc-number">4.1.</span> <span class="toc-text">虚拟槽分区 SLOT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#节点通信"><span class="toc-number">4.2.</span> <span class="toc-text">节点通信</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Redis study
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">P O R T</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-03-11T09:56:52.000Z" itemprop="datePublished">2021-03-11</time>
+        
+        (Updated: <time datetime="2021-03-14T15:47:14.000Z" itemprop="dateModified">2021-03-14</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/DataBase-DCS/" rel="tag">DataBase, DCS</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p> 这篇blog摘抄自《Redis开发与运维》，供自己学习使用。</p>
+<ul>
+<li><p>Redis: Remote Dictionary Server</p>
+</li>
+<li><p>将数据分为热数据和冷数据，比如视频信息是热数据，放在redis中可以加快读写。</p>
+</li>
+<li><p>5种数据结构：</p>
+<ul>
+<li><p>字符串 string</p>
+<ul>
+<li>Bitmap 位图</li>
+<li>HyperLogLog</li>
+</ul>
+</li>
+<li><p>哈希 hash</p>
+</li>
+<li><p>列表 list</p>
+</li>
+<li><p>集合 set</p>
+</li>
+<li><p>有序集合 zset</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>实际上每种数据结构都有自己底层的内部编码实现，而且是多种实现，这样Redis会在合适的场景选择合适的内部编码.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; OBJECT encoding java</span><br><span class="line">&quot;embstr&quot;</span><br><span class="line">127.0.0.1:6379&gt; OBJECT encoding mylist</span><br><span class="line">&quot;quicklist&quot;</span><br></pre></td></tr></table></figure>
+
+
+<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311141000387.png" alt="image-20210311141000387" style="zoom:67%;" />
+
+<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311141053562.png" alt="image-20210311141053562" style="zoom:67%;" />
+
+<ul>
+<li><p>持久化</p>
+<ul>
+<li><p>RDB</p>
+</li>
+<li><p>AOF</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>字符串类型是Redis最基础的数据结构。首先键都是字符串类型，而且其他几种数据结构都是在字符串类型基础上构建的，所以字符串类型能为其他四种数据结构的学习奠定基础。如图2-7所示，字符串类型的值实际可以是字符串（简单的字符串、复杂的字符串（例如JSON、XML））、数字（整数、浮点数），甚至是二进制（图片、音频、视频），但是值最大不能超过512MB。</p>
+<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311100114986.png" alt="image-20210311100114986" style="zoom:67%;"/>
+
+<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311142325597.png" alt="image-20210311142325597" style="zoom:67%;" />
+
+
+<h2 id="复制原理"><a href="#复制原理" class="headerlink" title="复制原理"></a>复制原理</h2><p><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210312155735502.png" alt="image-20210312155735502"></p>
+<h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210313152433108.png" alt="image-20210313152433108" style="zoom:67%;" />
+
+<p>避免使用过长的key</p>
+<p>建议主节点挂载的从节点不超过两个</p>
+<p>正常的碎片率（mem_fragmentation)在1.03左右，解决方案</p>
+<ul>
+<li>数据对齐</li>
+<li>安全重启</li>
+</ul>
+<p>动态调整内存上限，最简单最理想化的例子：</p>
+<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210313154353253.png" alt="image-20210313154353253" style="zoom:67%;" />
+
+<p>建议所有进程都要配置maxmemory.</p>
+<h2 id="哨兵-Sentinel"><a href="#哨兵-Sentinel" class="headerlink" title="哨兵 Sentinel"></a>哨兵 Sentinel</h2><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210313200057532.png" alt="image-20210313200057532" style="zoom:67%;" />
+
+<p>提高整个系统的可用性</p>
+<p>分布式架构<br><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210313203605144.png" alt="image-20210313203605144"></p>
+<h3 id="Sentinel-原理"><a href="#Sentinel-原理" class="headerlink" title="Sentinel 原理"></a>Sentinel 原理</h3><ul>
+<li>三个定时任务</li>
+<li>主观下线</li>
+<li>客观下线</li>
+<li>领导者选举</li>
+<li>故障转移</li>
+</ul>
+<h2 id="Redis-分布式方案"><a href="#Redis-分布式方案" class="headerlink" title="Redis 分布式方案"></a>Redis 分布式方案</h2><ul>
+<li><p>客户端分区方案，把数据分到多个节点上。</p>
+<ul>
+<li>哈希分区</li>
+<li>顺序分区（Redis采用这种规则）</li>
+</ul>
+</li>
+<li><p>代理方案</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210314143218147.png" alt="image-20210314143218147"></p>
+<h3 id="虚拟槽分区-SLOT"><a href="#虚拟槽分区-SLOT" class="headerlink" title="虚拟槽分区 SLOT"></a>虚拟槽分区 SLOT</h3><p>Slot ：使用分散度良好的哈希函数把所有数据映射到一个固定范围的整数集合中，<strong>整数定义为槽</strong>，是数据迁移的基本单位。</p>
+<h3 id="节点通信"><a href="#节点通信" class="headerlink" title="节点通信"></a>节点通信</h3><ul>
+<li>ping: 检测在线 交换状态信息（自身节点和部分其他节点的状态数据）</li>
+<li>pong: 回应ping meet，（自身节点和部分其他节点的状态数据）</li>
+<li>meet: 通知新节点加入</li>
+<li>fail：判定集群内另一节点的下线时，通知别人</li>
+</ul>
+<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210314152617475.png" alt="image-20210314152617475" style="zoom:67%;" />
+
+<p>集群伸缩=槽和数据在节点间移动</p>
+<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210314154449203.png" alt="image-20210314154449203" style="zoom:67%;" />
+
+<p>建议使用redis-trib.rb add node这样的工具进行自动加入新节点，如果手动加入的话，万一旧节点里有数据可能会导致错乱。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#复制原理"><span class="toc-number">1.</span> <span class="toc-text">复制原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内存"><span class="toc-number">2.</span> <span class="toc-text">内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#哨兵-Sentinel"><span class="toc-number">3.</span> <span class="toc-text">哨兵 Sentinel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sentinel-原理"><span class="toc-number">3.1.</span> <span class="toc-text">Sentinel 原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis-分布式方案"><span class="toc-number">4.</span> <span class="toc-text">Redis 分布式方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟槽分区-SLOT"><span class="toc-number">4.1.</span> <span class="toc-text">虚拟槽分区 SLOT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#节点通信"><span class="toc-number">4.2.</span> <span class="toc-text">节点通信</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/03/11/Redis-study/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2021/03/11/Redis-study/&text=Redis study" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/03/11/Redis-study/&title=Redis study" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/03/11/Redis-study/&is_video=false&description=Redis study" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Redis study&body=Check out this article: http://yoursite.com/2021/03/11/Redis-study/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2021/03/11/Redis-study/&title=Redis study" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2021/03/11/Redis-study/&title=Redis study" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/03/11/Redis-study/&title=Redis study" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2021/03/11/Redis-study/&title=Redis study" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/03/11/Redis-study/&name=Redis study&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/03/11/Redis-study/&t=Redis study" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Yujian Cheng
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

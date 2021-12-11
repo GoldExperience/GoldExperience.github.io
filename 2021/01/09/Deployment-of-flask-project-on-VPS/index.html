@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="IntroThis article presents my experience on how to deploy a Flask web application on my VPS(Virtual Private Server).  I designed an OCR-based application for paper-document recognition and retrieval,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deployment of flask project on VPS">
+<meta property="og:url" content="http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/index.html">
+<meta property="og:site_name" content="P O R T">
+<meta property="og:description" content="IntroThis article presents my experience on how to deploy a Flask web application on my VPS(Virtual Private Server).  I designed an OCR-based application for paper-document recognition and retrieval,">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210109153516.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210109155151.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210109160810.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210110145635.png">
+<meta property="article:published_time" content="2021-01-09T14:42:35.000Z">
+<meta property="article:modified_time" content="2021-01-17T09:47:27.000Z">
+<meta property="article:author" content="Yujian Cheng">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210109153516.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Deployment of flask project on VPS</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2021/02/01/extremely-simple-Example-of-how-to-use-supervisor/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2021/01/09/linux-setup/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&text=Deployment of flask project on VPS" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&title=Deployment of flask project on VPS" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&is_video=false&description=Deployment of flask project on VPS" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Deployment of flask project on VPS&body=Check out this article: http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&title=Deployment of flask project on VPS" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&title=Deployment of flask project on VPS" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&title=Deployment of flask project on VPS" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&title=Deployment of flask project on VPS" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&name=Deployment of flask project on VPS&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&t=Deployment of flask project on VPS" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Intro"><span class="toc-number">1.</span> <span class="toc-text">Intro</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#VPS-setup"><span class="toc-number">2.</span> <span class="toc-text">VPS setup</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#general-setup"><span class="toc-number">3.</span> <span class="toc-text">general setup</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-firewall"><span class="toc-number">3.1.</span> <span class="toc-text">setup firewall</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#here-is-the-command-I-use-to-set-up-the-firewall"><span class="toc-number">3.1.1.</span> <span class="toc-text">here is the command I use to set up the firewall</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-Flask-Project"><span class="toc-number">3.2.</span> <span class="toc-text">setup Flask Project</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Install-environment-requirements"><span class="toc-number">3.2.1.</span> <span class="toc-text">Install environment requirements</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-clone-repository-my-example"><span class="toc-number">3.2.2.</span> <span class="toc-text">git clone repository(my example)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-and-active-Virtual-environment"><span class="toc-number">3.2.3.</span> <span class="toc-text">Create and active Virtual environment</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-nginx-amp-gunicorn"><span class="toc-number">3.3.</span> <span class="toc-text">setup nginx &amp; gunicorn</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#setup-ufw-again"><span class="toc-number">3.3.1.</span> <span class="toc-text">setup ufw again</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gunicorn-start"><span class="toc-number">3.3.2.</span> <span class="toc-text">gunicorn start</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#using-supervisor-manage-gunicorn"><span class="toc-number">3.3.3.</span> <span class="toc-text">using supervisor manage gunicorn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#create-log-file-dir"><span class="toc-number">3.3.4.</span> <span class="toc-text">create log file dir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#restart-supervisor"><span class="toc-number">3.3.5.</span> <span class="toc-text">restart supervisor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Change"><span class="toc-number">3.4.</span> <span class="toc-text">Change</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#conclusion"><span class="toc-number">4.</span> <span class="toc-text">conclusion</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#files-need-to-be-setup-about-specific-project"><span class="toc-number">4.1.</span> <span class="toc-text">files need to be setup about specific project</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Other-Tips"><span class="toc-number">5.</span> <span class="toc-text">Other Tips</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Deployment of flask project on VPS
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">P O R T</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-01-09T14:42:35.000Z" itemprop="datePublished">2021-01-09</time>
+        
+        (Updated: <time datetime="2021-01-17T09:47:27.000Z" itemprop="dateModified">2021-01-17</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><p>This article presents my experience on how to deploy a Flask web application on my VPS(Virtual Private Server). </p>
+<p>I designed an OCR-based application for paper-document recognition and retrieval, which was written in Python. For ease to use, I made it a simple web app and deployed it on my rented VPS.</p>
+<blockquote>
+<p>Tips: </p>
+<p><strong>FLASK:</strong> Flask is a micro web framework written in Python.</p>
+<p><strong>VPS:</strong> A virtual private server (VPS) is a virtual machine sold as a service by an Internet hosting service.</p>
+</blockquote>
+<blockquote>
+<p>from en.wikipedia.org</p>
+</blockquote>
+<h1 id="VPS-setup"><a href="#VPS-setup" class="headerlink" title="VPS setup"></a>VPS setup</h1><p>requirements:</p>
+<ul>
+<li>remote control the VPS by ssh</li>
+<li>have a user with root access</li>
+</ul>
+<p>See my other article for details.</p>
+<h1 id="general-setup"><a href="#general-setup" class="headerlink" title="general setup"></a>general setup</h1><h2 id="setup-firewall"><a href="#setup-firewall" class="headerlink" title="setup firewall"></a>setup firewall</h2><blockquote>
+<p>UFW, full name Uncomplicated Firewall, is a Firewall tool implemented through iptables.UFW is a encapsulation of iptables, whose rules are too complex for beginners.This article is also an extension on how to enhance VPS security. After you modify the SSH port and log in the user, it is a good idea to know which ports you have access to on your VPS and manage them with UFW to prevent abuse.<a href="http://einverne.github.io/post/2018/04/ufw.html" target="_blank" rel="noopener">Linux 下的防火墙 ufw</a></p>
+</blockquote>
+<h3 id="here-is-the-command-I-use-to-set-up-the-firewall"><a href="#here-is-the-command-I-use-to-set-up-the-firewall" class="headerlink" title="here is the command I use to set up the firewall"></a>here is the command I use to set up the firewall</h3><blockquote>
+<p>sudo apt install -y ufw </p>
+<p>sudo ufw default allow outgoing</p>
+<p>sudo ufw default deny incoming</p>
+<p>sudo ufw allow ssh # make sure you can use ssh for remote access</p>
+<p>sudo ufw allow 5000 # for test</p>
+<p>sudo ufw enable  </p>
+</blockquote>
+<blockquote>
+<p>sudo ufw status<br><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210109153516.png" alt="sudo ufw status"></p>
+</blockquote>
+<h2 id="setup-Flask-Project"><a href="#setup-Flask-Project" class="headerlink" title="setup Flask Project"></a>setup Flask Project</h2><p>This is the file tree of the project for configuration reference.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ pwd</span><br><span class="line">&#x2F;home&#x2F;tom</span><br><span class="line">➜  ~ tree -L 3</span><br><span class="line">.</span><br><span class="line">└── Projects</span><br><span class="line">    └── DocumentOCR</span><br><span class="line">        ├── app</span><br><span class="line">        ├── config.py</span><br><span class="line">        ├── doc</span><br><span class="line">        ├── __pycache__</span><br><span class="line">        ├── requirements.txt</span><br><span class="line">        ├── run.py</span><br><span class="line">        └── venv</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>Tip:</strong> prepare a requirement.txt<br>Include all the package need to be installed in this flask project. if does not know what are those packages, can use command <strong>pip freeze</strong><br><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210109155151.png" alt=""></p>
+</blockquote>
+<p>then use <strong>git clone</strong> to get the project files from your github repository</p>
+<p>PS: you can use <strong>scp</strong> as well.</p>
+<h3 id="Install-environment-requirements"><a href="#Install-environment-requirements" class="headerlink" title="Install environment requirements"></a>Install environment requirements</h3><blockquote>
+<p>sudo apt install -y python3-pip</p>
+<p>sudo apt install -y python3-venv</p>
+</blockquote>
+<h3 id="git-clone-repository-my-example"><a href="#git-clone-repository-my-example" class="headerlink" title="git clone repository(my example)"></a>git clone repository(my example)</h3><blockquote>
+<p>mkdir Projects</p>
+<p>cd Projects</p>
+<p>git clone <a href="https://github.com/GoldExperience/DocumentOCR.git" target="_blank" rel="noopener">https://github.com/GoldExperience/DocumentOCR.git</a></p>
+</blockquote>
+<h3 id="Create-and-active-Virtual-environment"><a href="#Create-and-active-Virtual-environment" class="headerlink" title="Create and active Virtual environment"></a>Create and active Virtual environment</h3><blockquote>
+<p>python3 -m venv {<strong>Your Project Dir</strong>}/venv</p>
+<p>source venv/bin/activate</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210109160810.png" alt=""></p>
+<p>Then we can install all requirements with requirements.txt</p>
+<blockquote>
+<p>pip install -r requirements.txt</p>
+</blockquote>
+<p>if this step has problems, you can install the requirements manually using <strong>pip install {package name}</strong> as well.</p>
+<h2 id="setup-nginx-amp-gunicorn"><a href="#setup-nginx-amp-gunicorn" class="headerlink" title="setup nginx &amp; gunicorn"></a>setup nginx &amp; gunicorn</h2><p>Because the poor performance of wsgi of flask, we need use nginx + gunicorn to get better performance and security.</p>
+<p>Nginx is a web server that can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache. </p>
+<p>and gunicorn means Multi-process/multi-threading/automatic-restart</p>
+<blockquote>
+<p>sudo apt install -y nginx</p>
+<p>sudo rm /etc/nginx/sites-enabled/default</p>
+<p>sudo vim /etc/nginx/sites-enabled/$ProjectName</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name &#123;your ip address&#125;;</span><br><span class="line"></span><br><span class="line">        location &#x2F;static&#123;</span><br><span class="line">                alias &#x2F;home&#x2F;tom&#x2F;Projects&#x2F;&#123;ProjectName&#125;&#x2F;app&#x2F;static;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location &#x2F;&#123;</span><br><span class="line">                proxy_pass http:&#x2F;&#x2F;localhost:8000;</span><br><span class="line">                include &#x2F;etc&#x2F;nginx&#x2F;proxy_params;</span><br><span class="line">                proxy_redirect off;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>the <strong>/home/tom/Projects/{ProjectName}/app/static</strong> is the location of the <strong>static</strong> files of your Flask Project. </p>
+<p>if you cannot save in vim, try this:</p>
+<blockquote>
+<p>:w !sudo tee % &gt; /dev/null</p>
+</blockquote>
+<h3 id="setup-ufw-again"><a href="#setup-ufw-again" class="headerlink" title="setup ufw again"></a>setup ufw again</h3><blockquote>
+<p>sudo ufw allow http/tcp</p>
+<p>sudo ufw delete allow 5000 </p>
+<p>sudo ufw enable</p>
+<p>sudo systemctl restart nginx</p>
+</blockquote>
+<h3 id="gunicorn-start"><a href="#gunicorn-start" class="headerlink" title="gunicorn start"></a>gunicorn start</h3><blockquote>
+<p>pip install gunicorn</p>
+<p>gunicorn -w {worker} run:app</p>
+</blockquote>
+<p>worker = core * 2 +1</p>
+<h3 id="using-supervisor-manage-gunicorn"><a href="#using-supervisor-manage-gunicorn" class="headerlink" title="using supervisor manage gunicorn"></a>using supervisor manage gunicorn</h3><p>In order for the system to continue running even after the remote connection is closed, you need to use the <strong>Supervisor</strong> to manage the gunicorn.</p>
+<blockquote>
+<p>sudo apt-get install -y supervisor</p>
+</blockquote>
+<p>then setup config file for supervisor</p>
+<blockquote>
+<p>sudo vim /etc/supervisor/conf.d/$ProjectName.conf</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[program:&#123;ProjectName&#125;]</span><br><span class="line">directory&#x3D;&#x2F;home&#x2F;tom&#x2F;Projects&#x2F;&#123;ProjectName&#125;</span><br><span class="line">command&#x3D;&#x2F;home&#x2F;tom&#x2F;Projects&#x2F;&#123;ProjectName&#125;&#x2F;venv&#x2F;bin&#x2F;gunicorn -w &#123;worker&#125; run:app</span><br><span class="line">user&#x3D;&#123;UserName&#125;</span><br><span class="line">autostart&#x3D;true</span><br><span class="line">autorestart&#x3D;true</span><br><span class="line">stopasgroup&#x3D;true</span><br><span class="line">killasgroup&#x3D;true</span><br><span class="line">stderr_logfile&#x3D;&#x2F;var&#x2F;log&#x2F;&#123;ProjectName&#125;&#x2F;&#123;ProjectName&#125;.err.log</span><br><span class="line">stdout_logfile&#x3D;&#x2F;var&#x2F;log&#x2F;&#123;ProjectName&#125;&#x2F;&#123;ProjectName&#125;.out.log</span><br></pre></td></tr></table></figure>
+<h3 id="create-log-file-dir"><a href="#create-log-file-dir" class="headerlink" title="create log file dir"></a>create log file dir</h3><blockquote>
+<p>sudo mkdir -p /var/log/$ProjectName</p>
+<p>sudo touch /var/log/$ProjectName/$ProjectName.err.log</p>
+<p>sudo touch /var/log/$ProjectName/$ProjectName.out.log</p>
+</blockquote>
+<h3 id="restart-supervisor"><a href="#restart-supervisor" class="headerlink" title="restart supervisor"></a>restart supervisor</h3><blockquote>
+<p>sudo supervisorctl reload</p>
+</blockquote>
+<h2 id="Change"><a href="#Change" class="headerlink" title="Change"></a>Change</h2><blockquote>
+<p>sudo vim /etc/nginx/nginx.conf<br>add this within block <strong>http</strong><br>client_max_body_size {upt to you}M;</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/20210110145635.png" alt=""></p>
+<p>the restart nginx</p>
+<blockquote>
+<p>sudo systemctl restart nginx</p>
+</blockquote>
+<h1 id="conclusion"><a href="#conclusion" class="headerlink" title="conclusion"></a>conclusion</h1><h2 id="files-need-to-be-setup-about-specific-project"><a href="#files-need-to-be-setup-about-specific-project" class="headerlink" title="files need to be setup about specific project"></a>files need to be setup about specific project</h2><ul>
+<li><p>/etc/nginx/sites-enabled/$ProjectName</p>
+</li>
+<li><p>/etc/supervisor/conf.d/$ProjectName.conf</p>
+</li>
+</ul>
+<h1 id="Other-Tips"><a href="#Other-Tips" class="headerlink" title="Other Tips"></a>Other Tips</h1><blockquote>
+<p>Tips: for opencv error:<strong>ImportError: libGL.so.1: cannot open shared object file: No such file or directory</strong><br>try: sudo apt install libgl1-mesa-glx</p>
+</blockquote>
+<blockquote>
+<p>test_before nginx:</p>
+<p>export FLASK_APP=run.py</p>
+<p>flask run –host=0.0.0.0</p>
+</blockquote>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Intro"><span class="toc-number">1.</span> <span class="toc-text">Intro</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#VPS-setup"><span class="toc-number">2.</span> <span class="toc-text">VPS setup</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#general-setup"><span class="toc-number">3.</span> <span class="toc-text">general setup</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-firewall"><span class="toc-number">3.1.</span> <span class="toc-text">setup firewall</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#here-is-the-command-I-use-to-set-up-the-firewall"><span class="toc-number">3.1.1.</span> <span class="toc-text">here is the command I use to set up the firewall</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-Flask-Project"><span class="toc-number">3.2.</span> <span class="toc-text">setup Flask Project</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Install-environment-requirements"><span class="toc-number">3.2.1.</span> <span class="toc-text">Install environment requirements</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-clone-repository-my-example"><span class="toc-number">3.2.2.</span> <span class="toc-text">git clone repository(my example)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-and-active-Virtual-environment"><span class="toc-number">3.2.3.</span> <span class="toc-text">Create and active Virtual environment</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-nginx-amp-gunicorn"><span class="toc-number">3.3.</span> <span class="toc-text">setup nginx &amp; gunicorn</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#setup-ufw-again"><span class="toc-number">3.3.1.</span> <span class="toc-text">setup ufw again</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gunicorn-start"><span class="toc-number">3.3.2.</span> <span class="toc-text">gunicorn start</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#using-supervisor-manage-gunicorn"><span class="toc-number">3.3.3.</span> <span class="toc-text">using supervisor manage gunicorn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#create-log-file-dir"><span class="toc-number">3.3.4.</span> <span class="toc-text">create log file dir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#restart-supervisor"><span class="toc-number">3.3.5.</span> <span class="toc-text">restart supervisor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Change"><span class="toc-number">3.4.</span> <span class="toc-text">Change</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#conclusion"><span class="toc-number">4.</span> <span class="toc-text">conclusion</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#files-need-to-be-setup-about-specific-project"><span class="toc-number">4.1.</span> <span class="toc-text">files need to be setup about specific project</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Other-Tips"><span class="toc-number">5.</span> <span class="toc-text">Other Tips</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&text=Deployment of flask project on VPS" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&title=Deployment of flask project on VPS" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&is_video=false&description=Deployment of flask project on VPS" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Deployment of flask project on VPS&body=Check out this article: http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&title=Deployment of flask project on VPS" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&title=Deployment of flask project on VPS" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&title=Deployment of flask project on VPS" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&title=Deployment of flask project on VPS" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&name=Deployment of flask project on VPS&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/01/09/Deployment-of-flask-project-on-VPS/&t=Deployment of flask project on VPS" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Yujian Cheng
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

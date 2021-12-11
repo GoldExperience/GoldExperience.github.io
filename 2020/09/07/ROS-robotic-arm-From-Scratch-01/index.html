@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="warningSome of the images cannot be displayed properly because the original blogging platform has closed external linkshere is the original linkshttps:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;53bd12fd7155 https:&#x2F;&#x2F;www.jian">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS robotic arm From Scratch">
+<meta property="og:url" content="http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/index.html">
+<meta property="og:site_name" content="P O R T">
+<meta property="og:description" content="warningSome of the images cannot be displayed properly because the original blogging platform has closed external linkshere is the original linkshttps:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;53bd12fd7155 https:&#x2F;&#x2F;www.jian">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-6999af44422cc4fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-7718abeb71e0b150.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-77085a315fc6eb93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-efde7c430a3b50f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-fd61d82c79d4b504.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-bb0e0d2dce819852.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-7f773eab1d7f9514.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-5389685648d47b96.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-d12761c4660dff37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-76f2980f60e84924.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-b712cb82b9220d7c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-d8e86509fd5615f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-245eb9a6fb0d201d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-d5f7ac83c2ffdb04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-77fd718db2c9596d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-57d781a64c779f92.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-edab8cb6f83cd888.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-0fc2566e6af17f52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-96d1e01ae4a3c7d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-27fc8688ac301f72.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-78ff92205d3fb8ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-96a60d9fa0d745fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-0c3ed698cf9b9bdc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-598d5478f2d9d4e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-98360930b405421e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-db12de381188a0d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-e863e0c3c6a992a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-8f2d1b28e512f965.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-ec5568381cb982fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-9acb5570974cb5f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-785e70b2d568c796.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-d3ae03ead4ccf3c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8555575-20631ca4b73f4ca9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-09-07T15:34:50.000Z">
+<meta property="article:modified_time" content="2020-09-07T18:09:45.000Z">
+<meta property="article:author" content="Yujian Cheng">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8555575-6999af44422cc4fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>ROS robotic arm From Scratch</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/09/07/Basic-of-Xacro-with-Rviz/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/09/07/RIMA-ROBOT/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&text=ROS robotic arm From Scratch" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&title=ROS robotic arm From Scratch" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&is_video=false&description=ROS robotic arm From Scratch" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ROS robotic arm From Scratch&body=Check out this article: http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&title=ROS robotic arm From Scratch" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&title=ROS robotic arm From Scratch" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&title=ROS robotic arm From Scratch" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&title=ROS robotic arm From Scratch" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&name=ROS robotic arm From Scratch&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&t=ROS robotic arm From Scratch" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#warning"><span class="toc-number">1.</span> <span class="toc-text">warning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demonstrate"><span class="toc-number">2.</span> <span class="toc-text">Demonstrate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Arduino-control-servo-motor-with-ros"><span class="toc-number">3.</span> <span class="toc-text">Arduino control servo motor with ros</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设计图"><span class="toc-number">3.1.</span> <span class="toc-text">设计图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#URDF"><span class="toc-number">4.</span> <span class="toc-text">URDF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SW2URDF"><span class="toc-number">5.</span> <span class="toc-text">SW2URDF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rosserial-PCA9685"><span class="toc-number">6.</span> <span class="toc-text">Rosserial PCA9685</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        ROS robotic arm From Scratch
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">P O R T</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-09-07T15:34:50.000Z" itemprop="datePublished">2020-09-07</time>
+        
+        (Updated: <time datetime="2020-09-07T18:09:45.000Z" itemprop="dateModified">2020-09-07</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="warning"><a href="#warning" class="headerlink" title="warning"></a>warning</h2><p>Some of the images cannot be displayed properly because the original blogging platform has closed external links<br>here is the original links<br><a href="https://www.jianshu.com/p/53bd12fd7155" target="_blank" rel="noopener">https://www.jianshu.com/p/53bd12fd7155</a></p>
+<p><a href="https://www.jianshu.com/p/30b922dae307" target="_blank" rel="noopener">https://www.jianshu.com/p/30b922dae307</a></p>
+<p><a href="https://www.jianshu.com/p/040635e4d8c8" target="_blank" rel="noopener">https://www.jianshu.com/p/040635e4d8c8</a></p>
+<h2 id="Demonstrate"><a href="#Demonstrate" class="headerlink" title="Demonstrate"></a>Demonstrate</h2><iframe width="560" height="315" src="https://www.youtube.com/embed/cpjB-h38BA4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h2 id="Arduino-control-servo-motor-with-ros"><a href="#Arduino-control-servo-motor-with-ros" class="headerlink" title="Arduino control servo motor with ros"></a>Arduino control servo motor with ros</h2><h3 id="设计图"><a href="#设计图" class="headerlink" title="设计图"></a>设计图</h3><p><img src="https://upload-images.jianshu.io/upload_images/8555575-6999af44422cc4fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="第一版设计，总感觉有点不对劲，先试试看。"><br><img src="https://upload-images.jianshu.io/upload_images/8555575-7718abeb71e0b150.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="第二版设计"><br>最终结果大概是想设计成上面这样。<br>第一个问题是如何使用ROS控制舵机转动一定角度。<br>首先是arduino，安装好rosserial后确保一切正常，下面这个是详细且成功率高的安装方法。<br><a href="https://www.intorobotics.com/installing-and-setting-up-arduino-with-ros-kinetic-raspberry-pi-3/" target="_blank" rel="noopener">https://www.intorobotics.com/installing-and-setting-up-arduino-with-ros-kinetic-raspberry-pi-3/</a><br>但是这种方法在Ubuntu18.04下有bug<br>另一种方法是从arduino官网上下载，解压出来后运行install.sh<br>之后再从Library Manager中安装rosserial库。<br><img src="https://upload-images.jianshu.io/upload_images/8555575-77085a315fc6eb93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>安装好之后可以先试试example里的控制舵机的程序（用第二种方法没有这段代码）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#if (ARDUINO &gt;&#x3D; 100)</span><br><span class="line"> #include &lt;Arduino.h&gt;</span><br><span class="line">#else</span><br><span class="line"> #include &lt;WProgram.h&gt;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">#include &lt;Servo.h&gt; </span><br><span class="line">#include &lt;ros.h&gt;</span><br><span class="line">#include &lt;std_msgs&#x2F;UInt16.h&gt;</span><br><span class="line"></span><br><span class="line">ros::NodeHandle  nh;</span><br><span class="line"></span><br><span class="line">Servo servo;</span><br><span class="line"></span><br><span class="line">void servo_cb( const std_msgs::UInt16&amp; cmd_msg)&#123;</span><br><span class="line">  servo.write(cmd_msg.data); &#x2F;&#x2F;set servo angle, should be from 0-180  </span><br><span class="line">  digitalWrite(13, HIGH-digitalRead(13));  &#x2F;&#x2F;toggle led  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ros::Subscriber&lt;std_msgs::UInt16&gt; sub(&quot;servo&quot;, servo_cb);</span><br><span class="line"></span><br><span class="line">void setup()&#123;</span><br><span class="line">  pinMode(13, OUTPUT);</span><br><span class="line"></span><br><span class="line">  nh.initNode();</span><br><span class="line">  nh.subscribe(sub);</span><br><span class="line">  </span><br><span class="line">  servo.attach(9); &#x2F;&#x2F;attach it to pin 9</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void loop()&#123;</span><br><span class="line">  nh.spinOnce();</span><br><span class="line">  delay(1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码的主要内容是订阅“servo”这个话题获取一个int值，然后用它操作舵机旋转的角度。</p>
+<p>然后使用rosserial，安装好rosserial之后，在终端运行</p>
+<blockquote>
+<p>rosrun rosserial_python serial_node.py<br><img src="https://upload-images.jianshu.io/upload_images/8555575-efde7c430a3b50f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Screenshot from 2018-10-20 10-46-03.png"><br>之后在终端输入</p>
+</blockquote>
+<blockquote>
+<p>rostopic list</p>
+</blockquote>
+<p>检查是否有servo话题<br><img src="https://upload-images.jianshu.io/upload_images/8555575-fd61d82c79d4b504.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Screenshot from 2018-10-20 11-00-04.png"><br>然后在servo话题下手动发布消息进行测试，把“servo”打出来后不停按tab就行了，然后改一下data的值。</p>
+<blockquote>
+<p>rostopic pub /servo std_msgs/UInt16 “data: 0”</p>
+</blockquote>
+<p>如果成功的话舵机就会旋转到设定的那个角度。</p>
+<h2 id="URDF"><a href="#URDF" class="headerlink" title="URDF"></a>URDF</h2><p>这一篇内容的成果大概长这样，因为比较简单，手写比较方便。<br><img src="https://upload-images.jianshu.io/upload_images/8555575-bb0e0d2dce819852.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="显然，这是一个便宜的sg90舵机"><br>视频地址: <a href="https://www.bilibili.com/video/av34229434/" target="_blank" rel="noopener">https://www.bilibili.com/video/av34229434/</a></p>
+<p>关于urdf的介绍目前看到的最好的一篇介绍应该是ROSCon的这篇<br><a href="https://youtu.be/g9WHxOpAUns" target="_blank" rel="noopener">https://youtu.be/g9WHxOpAUns</a><br>ROSWIKI上有完整的urdf教程，你可以根据教程自己写一些简单的机器人，实际上相当的麻烦而且容易出错，我以前从未想过用这种方法写一个机器人的模型出来，还以为和做游戏一样在Blender或者3dsmax这样的建模软件里搞定一切然后直接导出到rviz里就能摆弄了。实际上urdf也是可以的，但目前好像只有solidworks和matlab有这种插件，其中solidworks的插件叫做sw2urdf，我使用了之后发现还是相当方便的，至少比手写方便。</p>
+<blockquote>
+<p>catkin_create_pkg &lt;你要创建的package的名字&gt; roscpp tf  geometry_msgs urdf rviz xacro </p>
+</blockquote>
+<p>创建好包之后我们来写urdf，目前好像没找到带urdf代码提示插件的文本编辑器，如果你使用带ros_qct_plugin的qtcreator的话里面可以新建urdf文件，但并没有提示功能。<br>下面具体来写这个简单的sg90舵机的urdf文件的过程<br>首先打开<a href="http://wiki.ros.org/urdf/XML" target="_blank" rel="noopener">http://wiki.ros.org/urdf/XML</a><br>urdf是一种XML格式的文件，参考上面的链接找到你需要的东西，主要是各种link和joint。<br>上面这个舵机的模型由两个link和一个joint组成，下面蓝色的是舵机本体，上面红色的是买舵机的时候送的配件，非常便宜，随处可见。<br>不能在urdf里直接写出它们模型，而是选择mesh型的link，从别的地方引用一个stl格式的模型。这里是用Blender简单的做了一个sg90的外形。<br>做的时候看了一下比例，Blender里默认的box大小是2m<em>2m</em>2m，在urdf里直接写一个box型的link，size设置成“2 2 2”，两者的大小是一样的。如果懒得做模型的话直接搞两个box替代就好了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;robot name&#x3D;&quot;my_01&quot;&gt;</span><br><span class="line">	&lt;link name&#x3D;&quot;base_link&quot;&gt;</span><br><span class="line">		&lt;visual&gt;</span><br><span class="line">			&lt;geometry&gt;</span><br><span class="line">				&lt;mesh filename&#x3D;&quot;package:&#x2F;&#x2F;my_robot&#x2F;meshes&#x2F;servo_9g.stl&quot; size&#x3D;&quot;1 1 1&quot; &#x2F;&gt;</span><br><span class="line">			&lt;&#x2F;geometry&gt;</span><br><span class="line">			&lt;material name&#x3D;&quot;blue&quot;&gt;</span><br><span class="line">				&lt;color rgba&#x3D;&quot;0 31 255 1&quot;&#x2F;&gt;</span><br><span class="line">			&lt;&#x2F;material&gt;</span><br><span class="line">			&lt;origin rpy&#x3D;&quot;0 0 0&quot; xyz&#x3D;&quot;0 0 0&quot; &#x2F;&gt;</span><br><span class="line">		&lt;&#x2F;visual&gt;</span><br><span class="line">		&lt;collision&gt;</span><br><span class="line">			&lt;origin rpy&#x3D;&quot;0 0 0&quot; xyz&#x3D;&quot;0 0 0&quot; &#x2F;&gt;</span><br><span class="line">			&lt;geometry&gt;</span><br><span class="line">				&lt;mesh filename&#x3D;&quot;package:&#x2F;&#x2F;my_robot&#x2F;meshes&#x2F;servo_9g.stl&quot; size&#x3D;&quot;1 1 1&quot; &#x2F;&gt;</span><br><span class="line">			&lt;&#x2F;geometry&gt;</span><br><span class="line">		&lt;&#x2F;collision&gt;</span><br><span class="line">	&lt;&#x2F;link&gt;</span><br><span class="line"></span><br><span class="line">	&lt;joint name&#x3D;&quot;base_link_to_link_01&quot; type&#x3D;&quot;revolute&quot;&gt;</span><br><span class="line">		&lt;parent link&#x3D;&quot;base_link&quot;&#x2F;&gt;</span><br><span class="line">		&lt;child link&#x3D;&quot;link_01&quot; &#x2F;&gt;</span><br><span class="line">		&lt;origin xyz&#x3D;&quot;0.5 0 1.4&quot; &#x2F;&gt;</span><br><span class="line">		&lt;axis xyz&#x3D;&quot;0 0 -1&quot; &#x2F;&gt;</span><br><span class="line">		&lt;limit effort&#x3D;&quot;2.5&quot; velocity&#x3D;&quot;0.1&quot; lower&#x3D;&quot;-1.57&quot; upper&#x3D;&quot;1.57&quot; &#x2F;&gt;</span><br><span class="line">		&lt;!-- &lt;dynamics damping&#x3D;&quot;0&quot; friction&#x3D;&quot;0&quot; &#x2F;&gt; --&gt;</span><br><span class="line">	&lt;&#x2F;joint&gt;</span><br><span class="line"></span><br><span class="line">	&lt;link name&#x3D;&quot;link_01&quot;&gt;</span><br><span class="line">		&lt;visual&gt;</span><br><span class="line">			&lt;geometry&gt;</span><br><span class="line">				&lt;mesh filename&#x3D;&quot;package:&#x2F;&#x2F;my_robot&#x2F;meshes&#x2F;servo_9g_bar.stl&quot; size&#x3D;&quot;1 1 1&quot; &#x2F;&gt;</span><br><span class="line">			&lt;&#x2F;geometry&gt;</span><br><span class="line">			&lt;origin rpy&#x3D;&quot;0 0 0&quot; xyz&#x3D;&quot;0 0 0&quot; &#x2F;&gt;</span><br><span class="line">		&lt;&#x2F;visual&gt;</span><br><span class="line">		&lt;collision&gt;</span><br><span class="line">			&lt;geometry&gt;</span><br><span class="line">				&lt;mesh filename&#x3D;&quot;package:&#x2F;&#x2F;my_robot&#x2F;meshes&#x2F;servo_9g_bar.stl&quot; size&#x3D;&quot;1 1 1&quot; &#x2F;&gt;</span><br><span class="line">			&lt;&#x2F;geometry&gt;</span><br><span class="line">			&lt;origin rpy&#x3D;&quot;0 0 0&quot; xyz&#x3D;&quot;0 0 0&quot; &#x2F;&gt;</span><br><span class="line">		&lt;&#x2F;collision&gt;</span><br><span class="line">	&lt;&#x2F;link&gt;</span><br><span class="line">&lt;&#x2F;robot&gt;</span><br></pre></td></tr></table></figure>
+
+<p>其中joint是比较关键的部分，joint有很多种，比较常见的有</p>
+<ul>
+<li>continuous 可以一直转下去</li>
+<li>revolute 舵机一般用这种，可以从一个角度转到另一个角度，limit里设置一下就好了</li>
+<li>prismatic 沿着一个导轨平移的东西就用它 </li>
+<li>fixed 什么也不干，只是把两个link就这么接在一起</li>
+</ul>
+<p>这里值得注意的是joint的 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;limit effort&#x3D;&quot;2.5&quot; velocity&#x3D;&quot;0.1&quot; lower&#x3D;&quot;-1.57&quot; upper&#x3D;&quot;1.57&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>我一度认为effort和velocity就是下图的torque和speed<br><img src="https://upload-images.jianshu.io/upload_images/8555575-7f773eab1d7f9514.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="sg90_datasheet.pdf"><br>然而好像并不是，effort是百分数，velocity是每秒转动的弧度。<br>所以目前填什么其实都无所谓，现阶段arduino只接收position就行了。</p>
+<p>这两个link实际上是从外部导入的stl格式的3d模型，但很多3d模型很复杂，所以有英伟达显卡的话最好能安装一下驱动程序，另外要准备一份低模，也就是面数比较低的模型，俗称low-poly，作为机器人的碰撞体collision，外形和尺寸要和你的用于显示的高模差不多，origin当然也要设置成一样的。</p>
+<p>另外需要注意的是joint的位置和旋转的轴，这点在上面那个ROSCon的视频里有比较直观的讲解。写的时候脑子未必能转的过来，需要时不时打开rviz查看模型是否正确，所以这个时候就需要写一个launch文件来启动rviz。这里顺便一说atom有一个ros代码提示的package，可以用来写launch文件，大概长这样：<br><img src="https://upload-images.jianshu.io/upload_images/8555575-5389685648d47b96.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="atom-ros"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;launch&gt;</span><br><span class="line">	&lt;arg name&#x3D;&quot;model&quot; &#x2F;&gt;</span><br><span class="line">	&lt;param name&#x3D;&quot;robot_description&quot; textfile&#x3D;&quot;$(find my_robot)&#x2F;urdf&#x2F;my01.urdf&quot; &#x2F;&gt;</span><br><span class="line">	&lt;param name&#x3D;&quot;use_gui&quot; value&#x3D;&quot;true&quot;&#x2F;&gt;	</span><br><span class="line">	&lt;node name&#x3D;&quot;joint_state_publisher&quot; pkg&#x3D;&quot;joint_state_publisher&quot; type&#x3D;&quot;joint_state_publisher&quot; &#x2F;&gt;</span><br><span class="line">	&lt;node name&#x3D;&quot;robot_state_publisher&quot; pkg&#x3D;&quot;robot_state_publisher&quot; type&#x3D;&quot;robot_state_publisher&quot; &#x2F;&gt;</span><br><span class="line">	&lt;node name&#x3D;&quot;rviz&quot; pkg&#x3D;&quot;rviz&quot; type&#x3D;&quot;rviz&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;launch&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里值得注意的是joint_state_publisher 和 robot_state_publisher<br>前者用于发布joint_state信息，大概长这样：<br>Header header<br>string[] name<br>float64[] position<br>float64[] velocity<br>float64[] effort<br><a href="http://docs.ros.org/melodic/api/sensor_msgs/html/msg/JointState.html" target="_blank" rel="noopener">http://docs.ros.org/melodic/api/sensor_msgs/html/msg/JointState.html</a><br>现阶段我们在arduino中订阅joint_state这个话题就能获得上面这些信息,比如我们可以将位于”0”的舵机旋转到msg.position[0]的位置。</p>
+<p>当初在YouTube上看到了这个视频<br><img src="https://upload-images.jianshu.io/upload_images/8555575-d12761c4660dff37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="https://youtu.be/6OjYXSEfVJ4"><br>问了作者之后发现原来只要订阅joint_state就行了。现在我们稍微修改一下ros_lib里控制舵机的示例代码来测试一下这个想法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#if (ARDUINO &gt;&#x3D; 100)</span><br><span class="line"> #include &lt;Arduino.h&gt;</span><br><span class="line">#else</span><br><span class="line"> #include &lt;WProgram.h&gt;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">#include &lt;Servo.h&gt;</span><br><span class="line">#include &lt;ros.h&gt;</span><br><span class="line">#include &lt;std_msgs&#x2F;UInt16.h&gt;</span><br><span class="line">#include &lt;sensor_msgs&#x2F;JointState.h&gt;</span><br><span class="line">ros::NodeHandle  nh;</span><br><span class="line">&#x2F;&#x2F;float pos&#x3D;0;</span><br><span class="line">Servo servo;</span><br><span class="line">void servo_cb(const sensor_msgs::JointState&amp; msg)</span><br><span class="line">&#123;</span><br><span class="line">  float pos&#x3D;msg.position[0];</span><br><span class="line">    servo.write(90-pos*57.3248);</span><br><span class="line">&#125;</span><br><span class="line">ros::Subscriber&lt;sensor_msgs::JointState&gt; sub(&quot;joint_states&quot;,servo_cb);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void setup()&#123;</span><br><span class="line">  &#x2F;&#x2F;Serial.begin(57600);</span><br><span class="line">  nh.initNode();</span><br><span class="line">  nh.subscribe(sub);</span><br><span class="line">  servo.attach(9); &#x2F;&#x2F;attach it to pin 9</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void loop()&#123;</span><br><span class="line">  nh.spinOnce();</span><br><span class="line"></span><br><span class="line">  delay(1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>于此同时，在launch文件里启动joint_state_publisher之外还要设置参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;param name&#x3D;&quot;use_gui&quot; value&#x3D;&quot;true&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这样运行的时候就会有GUI你可以用上面的slider来控制之前在joint-&gt;limit里设置的角度，这里是从-1.57到1.57，原因是它是一个180度的舵机。<br>然后我们使用刚刚的launch文件进入rviz<br><img src="https://upload-images.jianshu.io/upload_images/8555575-76f2980f60e84924.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DISPLAY"><br>首先把Fixed Frame设置成我们的base_link,然后添加RobotModel，其中Robot Description就是我们刚刚写的urdf。<br>滑动刚刚那个slider的话就可以让上面这个红色的配件沿着事先设定好的轴旋转，这个在urdf的joint中设定。<br>值得一提的是每个link还有joint都有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;origin rpy&#x3D;&quot;0 0 0&quot; xyz&#x3D;&quot;0 0 0&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>child link的origin实际上是相对于它的parent link的，如果发生了问题，比如上面的配件转的莫名奇妙的，那可能是joint的origin和axis没有设置好，这点在从solidworks导出的时候也有可能出现（老年痴呆），所以掌握了手写urdf的技巧的话就不用重新导出好几遍了。</p>
+<p>现在，无论是rviz里的3d模型还是现实中的sg90舵机都订阅了joint_states，它们会同步旋转。<br> <a href="https://www.bilibili.com/video/av34229434/" target="_blank" rel="noopener">https://www.bilibili.com/video/av34229434/</a></p>
+<p>下一篇可能是讲如何使用sw2urdf，直接从solidworks里导出urdf文件（我反正是不想手写，xacro也不想写）<br><img src="https://upload-images.jianshu.io/upload_images/8555575-b712cb82b9220d7c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="solidworks"></p>
+<h2 id="SW2URDF"><a href="#SW2URDF" class="headerlink" title="SW2URDF"></a>SW2URDF</h2><p>上回说到手写urdf是一件有些令人感到悲伤的事情，所以我想到了用solidworks直接导出urdf的插件——SW2URDF。<br>在此之前我做机械建模的aibo一直用UG，我强迫他学了solidworks。然后装了这个插件。</p>
+<p>从aibo手上拿到的文件是这样的：<br><img src="https://upload-images.jianshu.io/upload_images/8555575-d8e86509fd5615f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>sw2urdf的安装官网上已经给出<a href="http://wiki.ros.org/sw_urdf_exporter，这里不赘述，下载好之后双击运行一步步点下去就行了，界面要切换成英语，不然没法使用" target="_blank" rel="noopener">http://wiki.ros.org/sw_urdf_exporter，这里不赘述，下载好之后双击运行一步步点下去就行了，界面要切换成英语，不然没法使用</a></p>
+<p>这里我们主要是要导出装配体。<br>首先第一步是添加Axis 和 Coordinate System，也就是轴线和坐标系。<br>这个主要是为joint添加的，相当于joint下的axis和origin这两个属性。<br>可以在参考图形中选择它们。</p>
+<ul>
+<li>第一步，添加axis<br>选择Axis<br><img src="https://upload-images.jianshu.io/upload_images/8555575-245eb9a6fb0d201d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="axis"><br><img src="https://upload-images.jianshu.io/upload_images/8555575-d5f7ac83c2ffdb04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>选好之后点击绿色的√，就会出现蓝色的Axis，嫌短的话可以手动拉长，但其实没有影响。<br><img src="https://upload-images.jianshu.io/upload_images/8555575-77fd718db2c9596d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>然后选中这个原点，点击之后变为蓝色，确保这个原点在Axis上<br><img src="https://upload-images.jianshu.io/upload_images/8555575-57d781a64c779f92.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>这之后添加坐标系，如果没有这个原点的话要先添加点<br><img src="https://upload-images.jianshu.io/upload_images/8555575-edab8cb6f83cd888.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="https://upload-images.jianshu.io/upload_images/8555575-0fc2566e6af17f52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>确认了xyz轴符合要求之后就可以点√了，如果要调整的话可以选这个模型上的其他面来调整。现在我们有了坐标系和轴，也就确定了这个joint的位置和旋转。按照这个方法把其他的joint也都做了，就可以进行下一步了。<br><img src="https://upload-images.jianshu.io/upload_images/8555575-96d1e01ae4a3c7d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="https://upload-images.jianshu.io/upload_images/8555575-27fc8688ac301f72.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="https://upload-images.jianshu.io/upload_images/8555575-78ff92205d3fb8ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="https://upload-images.jianshu.io/upload_images/8555575-96a60d9fa0d745fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="https://upload-images.jianshu.io/upload_images/8555575-0c3ed698cf9b9bdc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="https://upload-images.jianshu.io/upload_images/8555575-598d5478f2d9d4e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>全部都配置好之后点击这个<br><img src="https://upload-images.jianshu.io/upload_images/8555575-98360930b405421e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="https://upload-images.jianshu.io/upload_images/8555575-db12de381188a0d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/8555575-e863e0c3c6a992a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>全好了之后点Finish，就会生成一个包<br><img src="https://upload-images.jianshu.io/upload_images/8555575-8f2d1b28e512f965.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>然后把它拷到你的工作空间中，运行这个display.launch<br><img src="https://upload-images.jianshu.io/upload_images/8555575-ec5568381cb982fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Screenshot from 2018-10-21 12-37-05.png"><br><img src="https://upload-images.jianshu.io/upload_images/8555575-9acb5570974cb5f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Screenshot from 2018-10-21 12-36-32.png"><br>按照上面的样子设置好DISPLAY就行了，然后把launch文件里的usegui改成true，就能拖动slider发布jointstate消息了。</p>
+<h2 id="Rosserial-PCA9685"><a href="#Rosserial-PCA9685" class="headerlink" title="Rosserial PCA9685"></a>Rosserial PCA9685</h2><p>上一篇开始，我们有了一个从SolidWorks中导出的package，其中已经有了display.launch供我们查看模型，同时，我们把use_gui设置为True之后，就可以用slider发布joint_states上的message了。</p>
+<ul>
+<li>一开始的方案是：<br>由arduino订阅joint_state话题<br>获取position[0] , position[1] , position[2]…….position[5],是一个float64的数组<br>获取的position在-1.57~1.57之间，使用map将其变为0~180<br>servo.write(position)<br><img src="https://upload-images.jianshu.io/upload_images/8555575-785e70b2d568c796.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Compact Message Definition"></li>
+</ul>
+<p>但是现在我们有总共6个舵机用于机械臂，还有一个舵机用在末端执行器上，不希望全部接在一个arduino uno上，所以使用便宜的PCA9685舵机驱动板。<br><img src="https://upload-images.jianshu.io/upload_images/8555575-d3ae03ead4ccf3c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="连接方法"><br>然后再给它提供一个5~6V的电源就行了。</p>
+<p>之后下载# <strong><a href="https://github.com/adafruit/Adafruit-PWM-Servo-Driver-Library" target="_blank" rel="noopener">Adafruit-PWM-Servo-Driver-Library</a></strong><br>如果是用之前的篇章提供的方法安装的arduino-ide的话，解压后需要将名字中的【-】符号替换成【_】，再放入sketchbook/libraries 中，不然可能会出现问题。<br><img src="https://upload-images.jianshu.io/upload_images/8555575-20631ca4b73f4ca9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>安装好之后可以运行其中的示例代码进行测试，另外还需要写一个函数将pulse映射成angle。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;Wire.h&gt;</span><br><span class="line">#include &lt;Adafruit_PWMServoDriver.h&gt;</span><br><span class="line"></span><br><span class="line">Adafruit_PWMServoDriver pwm &#x3D; Adafruit_PWMServoDriver();</span><br><span class="line"></span><br><span class="line">#define SERVOMIN  150 &#x2F;&#x2F; this is the &#39;minimum&#39; pulse length count (out of 4096)</span><br><span class="line">#define SERVOMAX  555&#x2F;&#x2F; this is the &#39;maximum&#39; pulse length count (out of 4096)</span><br><span class="line"></span><br><span class="line">uint8_t servonum &#x3D; 0;</span><br><span class="line"></span><br><span class="line">void setup() &#123;</span><br><span class="line">  Serial.begin(9600);</span><br><span class="line">  Serial.println(&quot;8 channel Servo test!&quot;);</span><br><span class="line"></span><br><span class="line">  pwm.begin();</span><br><span class="line"></span><br><span class="line">  pwm.setPWMFreq(60);  &#x2F;&#x2F; Analog servos run at ~60 Hz updates</span><br><span class="line"></span><br><span class="line">  delay(10);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void loop() &#123;</span><br><span class="line"></span><br><span class="line">    pwm.setPWM(servonum, 0, servo_write(90));</span><br><span class="line">    delay(1);</span><br><span class="line">    servonum++;</span><br><span class="line">    if(servonum&gt;&#x3D;7)</span><br><span class="line">      servonum&#x3D;0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int servo_write(int angle)</span><br><span class="line">&#123;</span><br><span class="line">  int pulse&#x3D;map(angle,0,180,SERVOMIN,SERVOMAX);</span><br><span class="line">  Serial.print(&quot;Angle: &quot;);</span><br><span class="line">  Serial.println(angle);</span><br><span class="line">  Serial.print(&quot;pulse: &quot;);</span><br><span class="line">  Serial.println(pulse);</span><br><span class="line"></span><br><span class="line">  return pulse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里值得注意的是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#define SERVOMIN  150 &#x2F;&#x2F; this is the &#39;minimum&#39; pulse length count (out of 4096)</span><br><span class="line">#define SERVOMAX  555&#x2F;&#x2F; this is the &#39;maximum&#39; pulse length count (out of 4096)</span><br></pre></td></tr></table></figure>
+<p>和预设的不同，需要你手动调整一下，具体方法是插上一个舵机，用它赠送的配件做一个指针，利用下面这行代码让舵机转到最小值或最大值的极限，比如140,130，或600,620，直到它转不动为止，然后将这个值重新设置为上面的SERVOMIN和SERVOMAX，但是我们购买的180度的MG996R实际上比180要稍微大一点，这里我们就把SERVOMIN和SERVOMAX还是设置成让它正好从0到180的pulse。<br>pwm.setPWM(servonum, 0,&lt;你认为的最小值或最大值&gt;);</p>
+<blockquote>
+<p>to be continue…</p>
+</blockquote>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#warning"><span class="toc-number">1.</span> <span class="toc-text">warning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demonstrate"><span class="toc-number">2.</span> <span class="toc-text">Demonstrate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Arduino-control-servo-motor-with-ros"><span class="toc-number">3.</span> <span class="toc-text">Arduino control servo motor with ros</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设计图"><span class="toc-number">3.1.</span> <span class="toc-text">设计图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#URDF"><span class="toc-number">4.</span> <span class="toc-text">URDF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SW2URDF"><span class="toc-number">5.</span> <span class="toc-text">SW2URDF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rosserial-PCA9685"><span class="toc-number">6.</span> <span class="toc-text">Rosserial PCA9685</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&text=ROS robotic arm From Scratch" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&title=ROS robotic arm From Scratch" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&is_video=false&description=ROS robotic arm From Scratch" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ROS robotic arm From Scratch&body=Check out this article: http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&title=ROS robotic arm From Scratch" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&title=ROS robotic arm From Scratch" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&title=ROS robotic arm From Scratch" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&title=ROS robotic arm From Scratch" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&name=ROS robotic arm From Scratch&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/09/07/ROS-robotic-arm-From-Scratch-01/&t=ROS robotic arm From Scratch" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Yujian Cheng
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="mailto:tom.yujian.cheng@gmail.com">contact</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
