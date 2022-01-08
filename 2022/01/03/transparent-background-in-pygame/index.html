@@ -7,13 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="article">
+    <meta name="description" content="source from stackoverflow 1234567891011121314151617181920212223242526import pygameimport win32apiimport win32conimport win32guipygame.init()screen &#x3D; pygame.display.set_mode((800, 600)) # For borderles">
+<meta property="og:type" content="article">
 <meta property="og:title" content="transparent background in pygame">
 <meta property="og:url" content="http://yoursite.com/2022/01/03/transparent-background-in-pygame/index.html">
 <meta property="og:site_name" content="P O R T">
+<meta property="og:description" content="source from stackoverflow 1234567891011121314151617181920212223242526import pygameimport win32apiimport win32conimport win32guipygame.init()screen &#x3D; pygame.display.set_mode((800, 600)) # For borderles">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-01-03T10:13:41.000Z">
-<meta property="article:modified_time" content="2022-01-03T10:13:41.270Z">
+<meta property="article:modified_time" content="2022-01-08T20:41:56.874Z">
 <meta property="article:author" content="Yujian Cheng">
 <meta name="twitter:card" content="summary">
     
@@ -75,6 +77,8 @@
     <span id="actions">
       <ul>
         
+        <li><a class="icon" href="/2022/01/08/XR-UI-in-Unity/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
         
         <li><a class="icon" href="/2022/01/01/use-jupyter-notebook-with-anaconda-or-venv/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
@@ -130,7 +134,7 @@
       
         <time datetime="2022-01-03T10:13:41.000Z" itemprop="datePublished">2022-01-03</time>
         
-        (Updated: <time datetime="2022-01-03T10:13:41.270Z" itemprop="dateModified">2022-01-03</time>)
+        (Updated: <time datetime="2022-01-08T20:41:56.874Z" itemprop="dateModified">2022-01-08</time>)
         
       
     </div>
@@ -145,7 +149,10 @@
   
 
   <div class="content" itemprop="articleBody">
-    
+    <p><a href="https://stackoverflow.com/questions/550001/fully-transparent-windows-in-pygame" target="_blank" rel="noopener">source from stackoverflow</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pygame</span><br><span class="line"><span class="keyword">import</span> win32api</span><br><span class="line"><span class="keyword">import</span> win32con</span><br><span class="line"><span class="keyword">import</span> win32gui</span><br><span class="line"></span><br><span class="line">pygame.init()</span><br><span class="line">screen = pygame.display.set_mode((<span class="number">800</span>, <span class="number">600</span>)) <span class="comment"># For borderless, use pygame.NOFRAME</span></span><br><span class="line">done = <span class="literal">False</span></span><br><span class="line">fuchsia = (<span class="number">255</span>, <span class="number">0</span>, <span class="number">128</span>)  <span class="comment"># Transparency color</span></span><br><span class="line">dark_red = (<span class="number">139</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create layered window</span></span><br><span class="line">hwnd = pygame.display.get_wm_info()[<span class="string">"window"</span>]</span><br><span class="line">win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE,</span><br><span class="line">                       win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE) | win32con.WS_EX_LAYERED)</span><br><span class="line"><span class="comment"># Set window transparency color</span></span><br><span class="line">win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*fuchsia), <span class="number">0</span>, win32con.LWA_COLORKEY)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">not</span> done:</span><br><span class="line">    <span class="keyword">for</span> event <span class="keyword">in</span> pygame.event.get():</span><br><span class="line">        <span class="keyword">if</span> event.type == pygame.QUIT:</span><br><span class="line">            done = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    screen.fill(fuchsia)  <span class="comment"># Transparent background</span></span><br><span class="line">    pygame.draw.rect(screen, dark_red, pygame.Rect(<span class="number">30</span>, <span class="number">30</span>, <span class="number">60</span>, <span class="number">60</span>))</span><br><span class="line">    pygame.display.update()</span><br></pre></td></tr></table></figure>
+
+
   </div>
 </article>
 
