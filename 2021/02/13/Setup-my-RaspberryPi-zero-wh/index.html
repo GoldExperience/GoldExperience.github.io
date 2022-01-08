@@ -153,13 +153,13 @@
 
   <div class="content" itemprop="articleBody">
     <h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p>为树莓派重装系统，以及安装需要用到的各种东西，记录一下每个步骤。</p>
-<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="查找ip"><a href="#查找ip" class="headerlink" title="查找ip"></a>查找ip</h3><p>在树莓派启动并连入局域网后，根据<a href="https://www.raspberrypi.org/documentation/remote-access/ip-address.md" target="_blank" rel="noopener">官方IP教程</a>, 在本机使用<strong>ping raspberrypi.local</strong>命令可获取到树莓派在同一局域网下的IP地址。之后使用ssh pi@<your ip of pi> 就可以登陆</p>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="查找ip"><a href="#查找ip" class="headerlink" title="查找ip"></a>查找ip</h3><p>在树莓派启动并连入局域网后，根据<a href="https://www.raspberrypi.org/documentation/remote-access/ip-address.md" target="_blank" rel="noopener">官方IP教程</a>, 在本机使用<strong>ping raspberrypi.local</strong>命令可获取到树莓派在同一局域网下的IP地址。之后使用ssh pi@<your ip of pi> 就可以登陆</your></p>
 <h3 id="设置固定ip"><a href="#设置固定ip" class="headerlink" title="设置固定ip"></a>设置固定ip</h3><p><a href="https://www.raspberrypi.org/documentation/configuration/tcpip/" target="_blank" rel="noopener">官网固定IP教程</a>，这样就不因为DCHP的原因每次都换ip了。</p>
 <h3 id="sshkey-gen-免密码登陆"><a href="#sshkey-gen-免密码登陆" class="headerlink" title="sshkey-gen 免密码登陆"></a>sshkey-gen 免密码登陆</h3><p>使用sshkey-gen，就不用靠密码登陆，更安全也更方便。</p>
 <p>在本地（拿来ssh树莓派的PC上）使用<strong>ssh-keygen -t rsa -b 4096</strong>.之后会询问是否在默认位置生成key，是否使用密码。</p>
 <p>这里都使用默认，不用密码。</p>
-<p>这样在“home/<username>/.ssh/”目录下就会生成 id_rsa 和 id_rsa.pub 两个文件。</p>
-<p>之后使用<strong>ssh-copy-id pi@<your ip address of pi></strong>将生成的文件配置到目标树莓派上，之后登陆的时候就不需要输入密码了。</p>
+<p>这样在“home/<username>/.ssh/”目录下就会生成 id_rsa 和 id_rsa.pub 两个文件。</username></p>
+<p>之后使用<strong>ssh-copy-id pi@<your ip address of pi></your></strong>将生成的文件配置到目标树莓派上，之后登陆的时候就不需要输入密码了。</p>
 <p>参考<a href="https://www.youtube.com/watch?v=vpk_1gldOAE" target="_blank" rel="noopener">YouTube上的教程</a></p>
 <h2 id="终端"><a href="#终端" class="headerlink" title="终端"></a>终端</h2><h3 id="首先安装vim"><a href="#首先安装vim" class="headerlink" title="首先安装vim"></a>首先安装vim</h3><blockquote>
 <p>sudo apt-get install vim</p>
@@ -180,8 +180,8 @@
 <p> 首先安装virtualenv，然后创建和激活新的虚拟环境</p>
 <blockquote>
 <p>sudo apt-get install python3-virtualenv </p>
-<p>python3 -m venv <your environment name>  # 在当前目录下建立新的虚拟环境</p>
-<p>source <path to environment>/bin/activate # 激活创建的虚拟环境</p>
+<p>python3 -m venv <your environment name>  # 在当前目录下建立新的虚拟环境</your></p>
+<p>source <path to environment></path>/bin/activate # 激活创建的虚拟环境</p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210213160204493.png" alt="image-20210213160204493"></p>
 <p>这种方法的问题在于安装opencv非常麻烦，用pip装会报错。</p>

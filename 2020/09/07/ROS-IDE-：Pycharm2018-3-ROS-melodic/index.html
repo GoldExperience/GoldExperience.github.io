@@ -156,10 +156,10 @@
 
   <div class="content" itemprop="articleBody">
     <p>第一次安装使用pycharm编写ros程序的时候会出现无法import rospy这种事情，下面是解决方案<br>第一步<br>打开setting -》Project Interpreter 查看当前环境<br><img src="https://upload-images.jianshu.io/upload_images/8555575-b009e46ab4626c8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>看看是不是上图所示的Project interpreter<br>安装好ros-melodic之后在终端输入 python ，可以看到当前环境下Python的版本，按ctrl-D退出Python</p>
-<p>第二步，如果不是，选择“show all”查看是否存在。<br>如果不存在，就选择第三个System Interpreter，找到当前用的Python2的环境<br><img src="https://upload-images.jianshu.io/upload_images/8555575-05fc61f6623cea78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>第三步，查看当前的Project interpreter，发现已经有rospkg,rosinstall等包了，但是没有rospy<br><img src="https://upload-images.jianshu.io/upload_images/8555575-6adf697496994545.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>第二步，如果不是，选择“show all”查看是否存在。<br>如果不存在，就选择第三个System Interpreter，找到当前用的Python2的环境<br><img src="https://upload-images.jianshu.io/upload_images/8555575-05fc61f6623cea78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>第三步，查看当前的Project interpreter，发现已经有rospkg,rosinstall等包了，但是没有rospy<br><img src="https://upload-images.jianshu.io/upload_images/8555575-6adf697496994545.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p>第四步，选择apply，ok，右下角会显示正在处理，等待一段时间处理完之后，可能在import rospy的时候还是会出现红色波浪线，这是因为我们没有source setup.bash的原因。</p>
-<p>第五步，暂时不想修改pycharm的desktop文件，想修改的话参照这个<a href="https://answers.ros.org/question/204326/pycharm-setup/" target="_blank" rel="noopener">pycharm setup</a><br>简单的方法是不要从dash启动pycharm，而是从terminal启动，因为我们已经在bashrc里source了setup.bash，在terminal内输入pycharm-community启动pycharm<br><img src="https://upload-images.jianshu.io/upload_images/8555575-045adda10df1c7b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>如果bashrc里并没有source的话就手动source一下<br><img src="https://upload-images.jianshu.io/upload_images/8555575-e11a81e34bbcc010.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>第五步，暂时不想修改pycharm的desktop文件，想修改的话参照这个<a href="https://answers.ros.org/question/204326/pycharm-setup/" target="_blank" rel="noopener">pycharm setup</a><br>简单的方法是不要从dash启动pycharm，而是从terminal启动，因为我们已经在bashrc里source了setup.bash，在terminal内输入pycharm-community启动pycharm<br><img src="https://upload-images.jianshu.io/upload_images/8555575-045adda10df1c7b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>如果bashrc里并没有source的话就手动source一下<br><img src="https://upload-images.jianshu.io/upload_images/8555575-e11a81e34bbcc010.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 
   </div>
 </article>

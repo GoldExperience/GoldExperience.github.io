@@ -199,9 +199,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; OBJECT encoding java</span><br><span class="line">&quot;embstr&quot;</span><br><span class="line">127.0.0.1:6379&gt; OBJECT encoding mylist</span><br><span class="line">&quot;quicklist&quot;</span><br></pre></td></tr></table></figure>
 
 
-<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311141000387.png" alt="image-20210311141000387" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311141000387.png" alt="image-20210311141000387" style="zoom:67%;">
 
-<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311141053562.png" alt="image-20210311141053562" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311141053562.png" alt="image-20210311141053562" style="zoom:67%;">
 
 <ul>
 <li><p>持久化</p>
@@ -214,13 +214,13 @@
 </li>
 </ul>
 <p>字符串类型是Redis最基础的数据结构。首先键都是字符串类型，而且其他几种数据结构都是在字符串类型基础上构建的，所以字符串类型能为其他四种数据结构的学习奠定基础。如图2-7所示，字符串类型的值实际可以是字符串（简单的字符串、复杂的字符串（例如JSON、XML））、数字（整数、浮点数），甚至是二进制（图片、音频、视频），但是值最大不能超过512MB。</p>
-<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311100114986.png" alt="image-20210311100114986" style="zoom:67%;"/>
+<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311100114986.png" alt="image-20210311100114986" style="zoom:67%;">
 
-<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311142325597.png" alt="image-20210311142325597" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210311142325597.png" alt="image-20210311142325597" style="zoom:67%;">
 
 
 <h2 id="复制原理"><a href="#复制原理" class="headerlink" title="复制原理"></a>复制原理</h2><p><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210312155735502.png" alt="image-20210312155735502"></p>
-<h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210313152433108.png" alt="image-20210313152433108" style="zoom:67%;" />
+<h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210313152433108.png" alt="image-20210313152433108" style="zoom:67%;">
 
 <p>避免使用过长的key</p>
 <p>建议主节点挂载的从节点不超过两个</p>
@@ -230,10 +230,10 @@
 <li>安全重启</li>
 </ul>
 <p>动态调整内存上限，最简单最理想化的例子：</p>
-<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210313154353253.png" alt="image-20210313154353253" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210313154353253.png" alt="image-20210313154353253" style="zoom:67%;">
 
 <p>建议所有进程都要配置maxmemory.</p>
-<h2 id="哨兵-Sentinel"><a href="#哨兵-Sentinel" class="headerlink" title="哨兵 Sentinel"></a>哨兵 Sentinel</h2><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210313200057532.png" alt="image-20210313200057532" style="zoom:67%;" />
+<h2 id="哨兵-Sentinel"><a href="#哨兵-Sentinel" class="headerlink" title="哨兵 Sentinel"></a>哨兵 Sentinel</h2><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210313200057532.png" alt="image-20210313200057532" style="zoom:67%;">
 
 <p>提高整个系统的可用性</p>
 <p>分布式架构<br><img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210313203605144.png" alt="image-20210313203605144"></p>
@@ -262,10 +262,10 @@
 <li>meet: 通知新节点加入</li>
 <li>fail：判定集群内另一节点的下线时，通知别人</li>
 </ul>
-<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210314152617475.png" alt="image-20210314152617475" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210314152617475.png" alt="image-20210314152617475" style="zoom:67%;">
 
 <p>集群伸缩=槽和数据在节点间移动</p>
-<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210314154449203.png" alt="image-20210314154449203" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/GoldExperience/BlogImages/master/image-20210314154449203.png" alt="image-20210314154449203" style="zoom:67%;">
 
 <p>建议使用redis-trib.rb add node这样的工具进行自动加入新节点，如果手动加入的话，万一旧节点里有数据可能会导致错乱。</p>
 
