@@ -7,16 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="I made a small python tool to automatic generate the markdown text for image from clipboard.  save the clipboard image to Save Path generate the markdown text of it copy it to this blog   123456789101">
+    <meta name="description" content="Screen Capture ToolI made a small python tool to automatic generate the markdown text for image from clipboard.  save the clipboard image to Save Path generate the markdown text of it copy it to this">
 <meta property="og:type" content="article">
 <meta property="og:title" content="screen capture helper">
 <meta property="og:url" content="http://yoursite.com/2022/01/08/screen-capture-helper/index.html">
 <meta property="og:site_name" content="P O R T">
-<meta property="og:description" content="I made a small python tool to automatic generate the markdown text for image from clipboard.  save the clipboard image to Save Path generate the markdown text of it copy it to this blog   123456789101">
+<meta property="og:description" content="Screen Capture ToolI made a small python tool to automatic generate the markdown text for image from clipboard.  save the clipboard image to Save Path generate the markdown text of it copy it to this">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/2022/01/08/screen-capture-helper/screencapture.png">
+<meta property="og:image" content="http://yoursite.com/2022/01/08/screen-capture-helper/post_folder.png">
+<meta property="og:image" content="http://yoursite.com/2022/01/08/screen-capture-helper/shown_incorrect.png">
 <meta property="article:published_time" content="2022-01-08T20:39:30.000Z">
-<meta property="article:modified_time" content="2022-01-08T21:55:41.673Z">
+<meta property="article:modified_time" content="2022-01-09T10:06:20.571Z">
 <meta property="article:author" content="Yujian Cheng">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/2022/01/08/screen-capture-helper/screencapture.png">
@@ -108,7 +110,7 @@
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Screen-Capture-Tool"><span class="toc-number">1.</span> <span class="toc-text">Screen Capture Tool</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#how-to-insert-image"><span class="toc-number">2.</span> <span class="toc-text">how to insert image</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -134,7 +136,7 @@
       
         <time datetime="2022-01-08T20:39:30.000Z" itemprop="datePublished">2022-01-08</time>
         
-        (Updated: <time datetime="2022-01-08T21:55:41.673Z" itemprop="dateModified">2022-01-08</time>)
+        (Updated: <time datetime="2022-01-09T10:06:20.571Z" itemprop="dateModified">2022-01-09</time>)
         
       
     </div>
@@ -149,7 +151,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>I made a small python tool to automatic generate the markdown text for image from clipboard.</p>
+    <h1 id="Screen-Capture-Tool"><a href="#Screen-Capture-Tool" class="headerlink" title="Screen Capture Tool"></a>Screen Capture Tool</h1><p>I made a small python tool to automatic generate the markdown text for image from clipboard.</p>
 <ol>
 <li>save the clipboard image to Save Path</li>
 <li>generate the markdown text of it</li>
@@ -161,6 +163,15 @@
 <blockquote>
 <p>pyinstaller –onefile -w screenshot_helper.py</p>
 </blockquote>
+<h1 id="how-to-insert-image"><a href="#how-to-insert-image" class="headerlink" title="how to insert image"></a>how to insert image</h1><p>first modify the <strong>_config.yml</strong></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># post_asset_folder: false</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>it will generate a folder with same name of your post, you can put the image there.</p>
+<p><img src="post_folder.png" alt="post_folder.png"></p>
+<p>insert the image use </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![screencapture.png](screencapture.png)</span><br></pre></td></tr></table></figure>
+<p>when you preview your markdown page, the image will not be shown correctly.<br><img src="shown_incorrect.png" alt="shown_incorrect.png"><br>but it will be shown correctly when you deploy on your github page.</p>
+<p>try to uninstall <strong>hexo-asset-image –save</strong> if not working</p>
 
   </div>
 </article>
@@ -186,7 +197,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Screen-Capture-Tool"><span class="toc-number">1.</span> <span class="toc-text">Screen Capture Tool</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#how-to-insert-image"><span class="toc-number">2.</span> <span class="toc-text">how to insert image</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
