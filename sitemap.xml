@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2022/01/16/Oculus-InputManager-with-Event/</loc>
+    
+    <lastmod>2022-01-16</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2022/01/16/unity-get-data-from-external-storage/</loc>
     
     <lastmod>2022-01-16</lastmod>
@@ -335,14 +344,14 @@
 
   
   <url>
-    <loc>http://yoursite.com/tags/web-python/</loc>
+    <loc>http://yoursite.com/tags/DataBase-DCS/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/DataBase-DCS/</loc>
+    <loc>http://yoursite.com/tags/web-python/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
