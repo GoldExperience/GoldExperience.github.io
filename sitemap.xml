@@ -2,9 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2022/01/17/Unity-Video-Player/</loc>
+    
+    <lastmod>2022-01-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2022/01/16/Oculus-InputManager-with-Event/</loc>
     
-    <lastmod>2022-01-16</lastmod>
+    <lastmod>2022-01-17</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -337,7 +346,7 @@
 
   <url>
     <loc>http://yoursite.com/</loc>
-    <lastmod>2022-01-16</lastmod>
+    <lastmod>2022-01-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -345,14 +354,14 @@
   
   <url>
     <loc>http://yoursite.com/tags/DataBase-DCS/</loc>
-    <lastmod>2022-01-16</lastmod>
+    <lastmod>2022-01-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yoursite.com/tags/web-python/</loc>
-    <lastmod>2022-01-16</lastmod>
+    <lastmod>2022-01-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
