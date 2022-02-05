@@ -7,13 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="article">
+    <meta name="description" content="use package pyinstaller with flaskwebgui first, we have a normal flask project with venv. 123456789101112.├── app│   ├── __init__.py│   ├── routes.py│   └── templates├── requirements.txt├── run.py└──">
+<meta property="og:type" content="article">
 <meta property="og:title" content="flask to exe">
 <meta property="og:url" content="http://yoursite.com/2022/02/05/flask-to-exe/index.html">
 <meta property="og:site_name" content="P O R T">
+<meta property="og:description" content="use package pyinstaller with flaskwebgui first, we have a normal flask project with venv. 123456789101112.├── app│   ├── __init__.py│   ├── routes.py│   └── templates├── requirements.txt├── run.py└──">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-02-05T19:16:45.000Z">
-<meta property="article:modified_time" content="2022-02-05T19:16:45.445Z">
+<meta property="article:modified_time" content="2022-02-05T19:39:20.718Z">
 <meta property="article:author" content="Yujian Cheng">
 <meta name="twitter:card" content="summary">
     
@@ -130,7 +132,7 @@
       
         <time datetime="2022-02-05T19:16:45.000Z" itemprop="datePublished">2022-02-05</time>
         
-        (Updated: <time datetime="2022-02-05T19:16:45.445Z" itemprop="dateModified">2022-02-05</time>)
+        (Updated: <time datetime="2022-02-05T19:39:20.718Z" itemprop="dateModified">2022-02-05</time>)
         
       
     </div>
@@ -145,7 +147,17 @@
   
 
   <div class="content" itemprop="articleBody">
-    
+    <p>use package <strong>pyinstaller</strong> with <strong>flaskwebgui</strong></p>
+<p>first, we have a normal flask project with venv.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── app</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── routes.py</span><br><span class="line">│   └── templates</span><br><span class="line">├── requirements.txt</span><br><span class="line">├── run.py</span><br><span class="line">└── venv</span><br><span class="line">    ├── Include</span><br><span class="line">    ├── Lib</span><br><span class="line">    ├── Scripts</span><br><span class="line">    └── pyvenv.cfg</span><br></pre></td></tr></table></figure>
+<p>in run.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> app <span class="keyword">import</span> app</span><br><span class="line"><span class="keyword">from</span> flaskwebgui <span class="keyword">import</span> FlaskUI</span><br><span class="line"></span><br><span class="line">ui = FlaskUI(app, width=<span class="number">500</span>, height=<span class="number">500</span>)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># app.run(debug=True)</span></span><br><span class="line">    ui.run()</span><br></pre></td></tr></table></figure>
+<p>then when you use <strong>python run.py</strong> you run the flask website in chrome app mode.</p>
+<p>if you want an .exe file, use this command</p>
+<blockquote>
+<p>pyinstaller -w -F –add-data “./app/templates;./app/templates” run.py</p>
+</blockquote>
+
   </div>
 </article>
 
